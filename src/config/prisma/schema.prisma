@@ -1,0 +1,79 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("POSTGRES_URL") // uses connection pooling
+  // directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+
+enum Source {
+  MANGAPLUS
+  MANGASAKI
+}
+
+model Chapter {
+  id              String          @id @default(uuid())
+  src             Source
+  chapterId       String //id on the website
+  formattedNumber String
+  title           String
+  number          String
+  image           String?
+  releaseDate     DateTime?
+  expirationDate  DateTime?
+  manga           Manga?          @relation(fields: [mangaId], references: [id])
+  mangaId         String
+  ChapterViewer   ChapterViewer[]
+}
+
+model Manga {
+  id            String    @id @default(uuid())
+  src           Source
+  mangaId       String //id on the website
+  formattedName String
+  title         String
+  author        String
+  image         String
+  chapters      Chapter[]
+}
+
+model ChapterViewer {
+  id        String        @id @default(uuid())
+  pages     ChapterPage[]
+  nbPages   Int
+  chapter   Chapter       @relation(fields: [chapterId], references: [id])
+  chapterId String
+}
+
+model ChapterPage {
+  id              String        @id @default(uuid())
+  url             String
+  decryptionKey   String?
+  chapterViewer   ChapterViewer @relation(fields: [chapterViewerId], references: [id])
+  chapterViewerId String
+}
+
+// model User {
+//   id    String  @id @default(uuid())
+//   email String  @unique
+//   name  String?
+//   posts Post[]
+// }
+
+// model Post {
+//   id        String   @id @default(uuid())
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+//   title     String
+//   content   String?
+//   published Boolean  @default(false)
+//   viewCount Int      @default(0)
+//   author    User?    @relation(fields: [authorId], references: [id])
+//   authorId  String?
+// }
