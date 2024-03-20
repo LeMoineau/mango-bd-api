@@ -131,3 +131,4 @@ out
 # Prisma files
 generated/
 migrations/
+.env.*
