@@ -1,8 +1,5 @@
-import { Identified } from "../../../shared/src/types/attributes/Identified";
 import { IdentifiedMangaNested } from "../../../shared/src/types/attributes/MangaNested";
 import {
-  Chapter,
-  ChapterCore,
   IdentifiedChapter,
   StoredChapter,
 } from "../../../shared/src/types/Chapter";
@@ -13,16 +10,14 @@ import {
 import { IntersiteManga } from "../../../shared/src/types/IntersiteManga";
 import {
   IdentifiedMangaCore,
-  Manga,
-  MangaCore,
   StoredManga,
 } from "../../../shared/src/types/Manga";
 import {
-  Chapter as PrismaChapter,
   IntersiteChapter as PrismaIntersiteChapter,
-  Manga as PrismaManga,
   IntersiteManga as PrismaIntersiteManga,
 } from "../config/prisma/generated/client";
+import { PrismaChapter } from "../types/prisma/PrismaChapter";
+import { PrismaManga } from "../types/prisma/PrismaManga";
 
 class PrismaConverter {
   public PrismaChapterToIdentifiedChapter(
@@ -65,8 +60,7 @@ class PrismaConverter {
   }
 
   public PrismaIntersiteChapterToParentlessIntersiteChapter<
-    T extends ChapterCore &
-      Identified & { image: string | null; releaseDate: Date | null },
+    T extends PrismaChapter,
   >(
     intersiteChapter: PrismaIntersiteChapter,
     chapters: T[]
@@ -86,10 +80,7 @@ class PrismaConverter {
     };
   }
 
-  public PrismaIntersiteChapterToIntersiteChapter<
-    T extends ChapterCore &
-      Identified & { image: string | null; releaseDate: Date | null },
-  >(
+  public PrismaIntersiteChapterToIntersiteChapter<T extends PrismaChapter>(
     intersiteChapter: PrismaIntersiteChapter,
     intersiteManga: PrismaIntersiteManga,
     chapters: T[]

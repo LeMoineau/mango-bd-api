@@ -1,6 +1,6 @@
 import { SourceName } from "@shared/types/primitives/id";
 import axios from "axios";
-import { Env } from "./../types/Env";
+import { Env } from "../types/config/Env";
 import { ArrayUtils } from "./../../../shared/src/utils/array-utils";
 import { DefaultValues } from "./default-values";
 
