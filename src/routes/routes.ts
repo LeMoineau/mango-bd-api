@@ -5,6 +5,7 @@ import settingsRoute from "./settings-routes";
 // import bySrcRoute from "./by-src-routes";
 import chaptersRoute from "./chapters.route";
 import intersiteChapterRouter from "./intersite-chapters.route";
+import mangasRouter from "./mangas-routes";
 
 const router = Router();
 
@@ -14,7 +15,7 @@ router.get("/", (_: Request, res: Response) => {
 
 router.use("/chapters", chaptersRoute);
 router.use("/latestchapters", latestChaptersRoute);
-// router.use("/mangas", mangasRoute);
+router.use("/mangas", mangasRouter);
 router.use("/settings", settingsRoute);
 router.use("/intersiteChapters", intersiteChapterRouter);
 // router.use("/srcs", bySrcRoute);

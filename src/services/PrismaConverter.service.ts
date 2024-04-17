@@ -20,10 +20,9 @@ import {
 } from "../config/prisma/generated/client";
 
 class PrismaConverter {
-  public PrismaChapterToStoredChapter<T extends IdentifiedMangaNested>(
-    chapter: PrismaChapter,
-    manga: T
-  ): StoredChapter {
+  public PrismaChapterToIdentifiedChapter(
+    chapter: PrismaChapter
+  ): IdentifiedChapter {
     return {
       id: chapter.id,
       src: chapter.src,
@@ -32,6 +31,15 @@ class PrismaConverter {
       number: chapter.number,
       image: chapter.image ?? undefined,
       releaseDate: chapter.releaseDate ?? undefined,
+    };
+  }
+
+  public PrismaChapterToStoredChapter<T extends IdentifiedMangaNested>(
+    chapter: PrismaChapter,
+    manga: T
+  ): StoredChapter {
+    return {
+      ...this.PrismaChapterToIdentifiedChapter(chapter),
       manga: {
         id: manga.id,
         endpoint: manga.endpoint,

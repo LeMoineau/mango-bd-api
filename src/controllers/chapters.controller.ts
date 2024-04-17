@@ -35,7 +35,7 @@ class ChaptersController {
     const chapters = await this.prisma.chapter.findMany({
       skip: (pageNumber - 1) * pageSize,
       take: pageSize,
-      where: { src: { in: props.srcs ?? config.getEnabledSources() } },
+      where: { src: { in: props.srcs } },
       orderBy: { releaseDate: "desc" },
       include: {
         manga: {
