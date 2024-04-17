@@ -39,7 +39,7 @@ intersiteChapterRouter.get("/", async (req: Request, res: Response) => {
     res
       .status(400)
       .send(
-        "wrong paramters: request query could contains page, limit and srcs (SourceName[])"
+        "wrong paramters: request query could contains page, limit and srcs (SourceName[]), chapterFormattedName and mangaFormattedName"
       );
   }
 });
@@ -63,11 +63,7 @@ intersiteChapterRouter.get("/:id", async (req: Request, res: Response) => {
       res.status(500).send(error);
     }
   } catch (error) {
-    res
-      .status(400)
-      .send(
-        "wrong paramters: request query could contains page, limit and srcs (SourceName[])"
-      );
+    res.status(400).send("wrong paramters: request params must contains id");
   }
 });
 
