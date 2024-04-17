@@ -8,6 +8,8 @@ import {
   isUUID,
   MangaFormattedName,
 } from "../../../shared/src/types/primitives/Identifiers";
+import { ResponsePage } from "../../../shared/src/types/responses/ResponsePage";
+import { DefaultValues } from "../config/default-values";
 import { PrismaClient } from "../config/prisma/generated/client";
 import PrismaConverterService from "../services/PrismaConverter.service";
 import intersiteMangasController from "./intersite-mangas.controller";
@@ -17,6 +19,54 @@ class IntersiteChaptersController {
 
   constructor() {
     this.prisma = new PrismaClient();
+  }
+
+  public async getAll(props: {
+    srcs?: SourceName[];
+    pageNumber?: number;
+    pageSize?: number;
+    chapterFormattedName?: string;
+    mangaFormattedName?: string;
+  }): Promise<ResponsePage<IntersiteChapter>> {
+    const pageSize = props.pageSize ?? DefaultValues.PAGE_SIZE;
+    const pageNumber = props.pageNumber ?? 1;
+    const intersiteChapters = await this.prisma.intersiteChapter.findMany({
+      skip: (pageNumber - 1) * pageSize,
+      take: pageSize,
+      where: {
+        formattedName: props.chapterFormattedName,
+        intersiteManga: {
+          formattedName: props.mangaFormattedName,
+        },
+        chapters: {
+          every: {
+            src: {
+              in: props.srcs,
+            },
+          },
+        },
+      },
+      include: {
+        intersiteManga: {
+          select: {
+            id: true,
+            formattedName: true,
+          },
+        },
+        chapters: true,
+      },
+    });
+    return {
+      elements: intersiteChapters.map((ic) =>
+        PrismaConverterService.PrismaIntersiteChapterToIntersiteChapter(
+          ic,
+          ic.intersiteManga!,
+          ic.chapters!
+        )
+      ),
+      pageNumber,
+      pageSize,
+    };
   }
 
   public async get(
