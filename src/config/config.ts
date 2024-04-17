@@ -2,9 +2,10 @@ import { SourceName } from "@shared/types/primitives/id";
 import axios from "axios";
 import { Env } from "./../types/Env";
 import { ArrayUtils } from "./../../../shared/src/utils/array-utils";
+import { DefaultValues } from "./default-values";
 
 class Config {
-  private enabledSources: SourceName[] = [];
+  private enabledSources: SourceName[] = DefaultValues.SOURCE_NAMES;
 
   constructor() {
     axios
@@ -16,7 +17,9 @@ class Config {
         }
       })
       .catch(() => {
-        console.error("can't connect to mango scraping api");
+        console.error(
+          "can't connect to mango scraping api. Loaded default value instead."
+        );
       });
   }
 

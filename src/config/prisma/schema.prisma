@@ -13,50 +13,49 @@ datasource db {
 }
 
 enum Source {
-  MANGAPLUS
-  MANGASAKI
+  mangaplus
+  mangasaki
+}
+
+model IntersiteChapter {
+  id               String          @id @default(uuid())
+  formattedName    String          @unique
+  intersiteManga   IntersiteManga? @relation(fields: [intersiteMangaId], references: [id])
+  intersiteMangaId String
+  chapters         Chapter[]
 }
 
 model Chapter {
-  id              String          @id @default(uuid())
-  src             Source
-  chapterId       String //id on the website
-  formattedNumber String
-  title           String
-  number          String
-  image           String?
-  releaseDate     DateTime?
-  expirationDate  DateTime?
-  manga           Manga?          @relation(fields: [mangaId], references: [id])
-  mangaId         String
-  ChapterViewer   ChapterViewer[]
+  id                 String            @id @default(uuid())
+  src                Source
+  endpoint           String            @unique //id on the website
+  title              String
+  number             String
+  image              String?
+  releaseDate        DateTime?
+  manga              Manga?            @relation(fields: [mangaId], references: [id])
+  mangaId            String
+  intersiteChapter   IntersiteChapter? @relation(fields: [intersiteChapterId], references: [id])
+  intersiteChapterId String?
 }
 
 model Manga {
-  id            String    @id @default(uuid())
-  src           Source
-  mangaId       String //id on the website
-  formattedName String
-  title         String
-  author        String
-  image         String
-  chapters      Chapter[]
+  id               String          @id @default(uuid())
+  src              Source
+  endpoint         String          @unique //id on the website
+  title            String
+  author           String?
+  image            String?
+  chapters         Chapter[]
+  intersiteManga   IntersiteManga? @relation(fields: [intersiteMangaId], references: [id])
+  intersiteMangaId String?
 }
 
-model ChapterViewer {
-  id        String        @id @default(uuid())
-  pages     ChapterPage[]
-  nbPages   Int
-  chapter   Chapter       @relation(fields: [chapterId], references: [id])
-  chapterId String
-}
-
-model ChapterPage {
-  id              String        @id @default(uuid())
-  url             String
-  decryptionKey   String?
-  chapterViewer   ChapterViewer @relation(fields: [chapterViewerId], references: [id])
-  chapterViewerId String
+model IntersiteManga {
+  id               String             @id @default(uuid())
+  formattedName    String             @unique
+  mangas           Manga[]
+  intersiteChapter IntersiteChapter[]
 }
 
 // model User {

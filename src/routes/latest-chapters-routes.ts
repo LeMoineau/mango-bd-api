@@ -14,9 +14,10 @@ router.get("/", async (req: Request, res: Response) => {
         res.status(400).send("srcs must be valid source names");
         return;
       }
-      res.send(
-        await latestChapters.get({ srcs: srcs && (srcs as SourceName[]) })
-      );
+      res
+        .send
+        // await latestChapters.get({ srcs: srcs && (srcs as SourceName[]) })
+        ();
     } catch (error) {
       console.error(error);
       res.status(500).send(error);
