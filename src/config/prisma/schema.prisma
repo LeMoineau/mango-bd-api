@@ -17,14 +17,6 @@ enum Source {
   mangasaki
 }
 
-model IntersiteChapter {
-  id               String          @id @default(uuid())
-  formattedName    String          @unique
-  intersiteManga   IntersiteManga? @relation(fields: [intersiteMangaId], references: [id])
-  intersiteMangaId String
-  chapters         Chapter[]
-}
-
 model Chapter {
   id                 String            @id @default(uuid())
   src                Source
@@ -49,6 +41,14 @@ model Manga {
   chapters         Chapter[]
   intersiteManga   IntersiteManga? @relation(fields: [intersiteMangaId], references: [id])
   intersiteMangaId String?
+}
+
+model IntersiteChapter {
+  id               String          @id @default(uuid())
+  formattedName    String          @unique
+  intersiteManga   IntersiteManga? @relation(fields: [intersiteMangaId], references: [id])
+  intersiteMangaId String
+  chapters         Chapter[]
 }
 
 model IntersiteManga {

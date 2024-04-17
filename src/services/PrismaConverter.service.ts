@@ -1,3 +1,4 @@
+import { Identified } from "../../../shared/src/types/attributes/Identified";
 import { IdentifiedMangaNested } from "../../../shared/src/types/attributes/MangaNested";
 import {
   Chapter,
@@ -5,11 +6,15 @@ import {
   IdentifiedChapter,
   StoredChapter,
 } from "../../../shared/src/types/Chapter";
-import { IntersiteChapter } from "../../../shared/src/types/IntersiteChapter";
+import {
+  IntersiteChapter,
+  ParentlessIntersiteChapter,
+} from "../../../shared/src/types/IntersiteChapter";
 import { IntersiteManga } from "../../../shared/src/types/IntersiteManga";
 import {
   IdentifiedMangaCore,
   Manga,
+  MangaCore,
   StoredManga,
 } from "../../../shared/src/types/Manga";
 import {
@@ -59,18 +64,16 @@ class PrismaConverter {
     };
   }
 
-  public PrismaIntersiteChapterToIntersiteChapter(
+  public PrismaIntersiteChapterToParentlessIntersiteChapter<
+    T extends ChapterCore &
+      Identified & { image: string | null; releaseDate: Date | null },
+  >(
     intersiteChapter: PrismaIntersiteChapter,
-    intersiteManga: PrismaIntersiteManga,
-    chapters: PrismaChapter[]
-  ): IntersiteChapter {
+    chapters: T[]
+  ): ParentlessIntersiteChapter {
     return {
       id: intersiteChapter.id,
       formattedName: intersiteChapter.formattedName,
-      intersiteManga: {
-        id: intersiteManga.id,
-        formattedName: intersiteManga.formattedName,
-      },
       chapters: chapters.map((c) => ({
         id: c.id,
         endpoint: c.endpoint,
@@ -83,10 +86,32 @@ class PrismaConverter {
     };
   }
 
-  public PrismaIntersiteMangaToIntersiteManga(
+  public PrismaIntersiteChapterToIntersiteChapter<
+    T extends ChapterCore &
+      Identified & { image: string | null; releaseDate: Date | null },
+  >(
+    intersiteChapter: PrismaIntersiteChapter,
     intersiteManga: PrismaIntersiteManga,
-    mangas: PrismaManga[]
-  ): IntersiteManga {
+    chapters: T[]
+  ): IntersiteChapter {
+    return {
+      ...this.PrismaIntersiteChapterToParentlessIntersiteChapter(
+        intersiteChapter,
+        chapters
+      ),
+      intersiteManga: {
+        id: intersiteManga.id,
+        formattedName: intersiteManga.formattedName,
+      },
+    };
+  }
+
+  public PrismaIntersiteMangaToIntersiteManga<
+    T extends IdentifiedMangaCore & {
+      image: string | null;
+      author: string | null;
+    },
+  >(intersiteManga: PrismaIntersiteManga, mangas: T[]): IntersiteManga {
     return {
       id: intersiteManga.id,
       formattedName: intersiteManga.formattedName,
