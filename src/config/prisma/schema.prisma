@@ -20,7 +20,7 @@ enum Source {
 model Chapter {
   id                 String            @id @default(uuid())
   src                Source
-  endpoint           String            @unique //id on the website
+  endpoint           String
   title              String
   number             String
   image              String?
