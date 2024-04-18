@@ -1,6 +1,6 @@
 import { IdentifiedChapter } from "../../../shared/src/types/Chapter";
 import { Manga, StoredManga } from "../../../shared/src/types/Manga";
-import { UUID } from "../../../shared/src/types/primitives/id";
+import { UUID } from "../../../shared/src/types/primitives/Identifiers";
 import {
   isUUID,
   MangaEndpoint,

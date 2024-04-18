@@ -2,7 +2,7 @@ import { Router, Request, Response } from "express";
 import { RoutingUtils } from "./../../../shared/src/utils/routing-utils";
 import config from "./../config/config";
 import chaptersController from "../controllers/chapters.controller";
-import { SourceName } from "../../../shared/src/types/primitives/id";
+import { SourceName } from "../../../shared/src/types/primitives/Identifiers";
 import {
   isScrapedChapter,
   ScrapedChapter,

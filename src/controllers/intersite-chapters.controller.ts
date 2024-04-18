@@ -2,11 +2,12 @@ import {
   IntersiteChapter,
   IntersiteChapterCore,
 } from "../../../shared/src/types/IntersiteChapter";
-import { SourceName, UUID } from "../../../shared/src/types/primitives/id";
 import {
   ChapterFormattedName,
   isUUID,
   MangaFormattedName,
+  SourceName,
+  UUID,
 } from "../../../shared/src/types/primitives/Identifiers";
 import { ResponsePage } from "../../../shared/src/types/responses/ResponsePage";
 import { DefaultValues } from "../config/default-values";

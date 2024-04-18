@@ -1,4 +1,4 @@
-import { SourceName } from "../../../shared/src/types/primitives/id";
+import { SourceName } from "../../../shared/src/types/primitives/Identifiers";
 
 export namespace DefaultValues {
   export const LIFETIME = 60 * 1000; // 1min

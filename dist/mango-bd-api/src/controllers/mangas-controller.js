@@ -14,7 +14,7 @@
 //   FormattedNumber,
 //   MangaId,
 //   SourceName,
-// } from "@shared/types/primitives/id";
+// } from "@shared/types/primitives/Identifiers";
 // import chapterViewerCacherService from "../services/chapter-viewers-cacher.service";
 // import { IntersiteChapterViewer } from "@shared/types/intersite/IntersiteChapterViewer";
 // import chapterIdsCacherService from "./../services/chapter-ids-cacher.service";

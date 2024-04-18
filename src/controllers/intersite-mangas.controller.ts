@@ -3,7 +3,7 @@ import {
   IntersiteManga,
   IntersiteMangaCore,
 } from "../../../shared/src/types/IntersiteManga";
-import { UUID } from "../../../shared/src/types/primitives/id";
+import { UUID } from "../../../shared/src/types/primitives/Identifiers";
 import {
   isUUID,
   MangaFormattedName,

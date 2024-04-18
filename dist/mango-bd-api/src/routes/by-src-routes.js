@@ -2,7 +2,7 @@
 // import { Router, Request, Response } from "express";
 // // import mangasController from "../controllers/mangas-controller";
 // import { RoutingUtils } from "../utils/routing-utils";
-// import { SourceName } from "@shared/types/primitives/id";
+// import { SourceName } from "@shared/types/primitives/Identifiers";
 // const router = Router();
 // router.get("/:src/mangas", async (req: Request, res: Response) => {
 //   try {

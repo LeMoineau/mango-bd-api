@@ -3,10 +3,10 @@ import {
   ScrapedChapter,
   StoredChapter,
 } from "../../../shared/src/types/Chapter";
-import { UUID } from "../../../shared/src/types/primitives/id";
 import {
   isUUID,
   SourceName,
+  UUID,
 } from "../../../shared/src/types/primitives/Identifiers";
 import { ResponsePage } from "../../../shared/src/types/responses/ResponsePage";
 import { TextFormatUtils } from "../../../shared/src/utils/text-format-utils";
