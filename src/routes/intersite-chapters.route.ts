@@ -11,11 +11,17 @@ intersiteChapterRouter.get("/", async (req: Request, res: Response) => {
     const srcs = RoutingUtils.convertQueryParamToArray(req.query.srcs);
     const pageNumber = RoutingUtils.convertQueryParamToNumber(req.query.page);
     const pageSize = RoutingUtils.convertQueryParamToNumber(req.query.limit);
-    const chapterFormattedName = RoutingUtils.convertQueryParamToString(
-      req.query.chapterFormattedName
+    const formattedName = RoutingUtils.convertQueryParamToString(
+      req.query.formattedName
     );
-    const mangaFormattedName = RoutingUtils.convertQueryParamToString(
-      req.query.mangaFormattedName
+    const intersiteMangaFormattedName = RoutingUtils.convertQueryParamToString(
+      req.query.intersiteMangaFormattedName
+    );
+    const chapterTitle = RoutingUtils.convertQueryParamToString(
+      req.query.chapterTitle
+    );
+    const chapterNumber = RoutingUtils.convertQueryParamToString(
+      req.query.chapterNumber
     );
     if (srcs && !config.areValidSrcs(srcs)) {
       res.status(400).send("srcs must be valid source names");
@@ -27,8 +33,10 @@ intersiteChapterRouter.get("/", async (req: Request, res: Response) => {
           srcs: srcs as SourceName[],
           pageNumber,
           pageSize,
-          chapterFormattedName,
-          mangaFormattedName,
+          formattedName,
+          intersiteMangaFormattedName,
+          chapterTitle,
+          chapterNumber,
         })
       );
     } catch (error) {

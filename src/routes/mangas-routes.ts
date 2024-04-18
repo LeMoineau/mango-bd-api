@@ -13,6 +13,8 @@ mangasRouter.get("/", async (req: Request, res: Response) => {
     const srcs = RoutingUtils.convertQueryParamToArray(req.query.srcs);
     const pageNumber = RoutingUtils.convertQueryParamToNumber(req.query.page);
     const pageSize = RoutingUtils.convertQueryParamToNumber(req.query.limit);
+    const title = RoutingUtils.convertQueryParamToString(req.query.title);
+    const author = RoutingUtils.convertQueryParamToString(req.query.author);
     if (srcs && !config.areValidSrcs(srcs)) {
       res.status(400).send("srcs must be valid source names");
       return;
@@ -23,6 +25,8 @@ mangasRouter.get("/", async (req: Request, res: Response) => {
           srcs: srcs as SourceName[],
           pageNumber,
           pageSize,
+          title,
+          author,
         })
       );
     } catch (error) {

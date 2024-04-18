@@ -50,6 +50,11 @@ router.get("/", async (req: Request, res: Response) => {
     const srcs = RoutingUtils.convertQueryParamToArray(req.query.srcs);
     const pageNumber = RoutingUtils.convertQueryParamToNumber(req.query.page);
     const pageSize = RoutingUtils.convertQueryParamToNumber(req.query.limit);
+    const mangaTitle = RoutingUtils.convertQueryParamToString(
+      req.query.mangaTitle
+    );
+    const number = RoutingUtils.convertQueryParamToString(req.query.number);
+    const title = RoutingUtils.convertQueryParamToString(req.query.title);
     if (srcs && !config.areValidSrcs(srcs)) {
       res.status(400).send("srcs must be valid source names");
       return;
@@ -60,6 +65,9 @@ router.get("/", async (req: Request, res: Response) => {
           srcs: srcs as SourceName[],
           pageNumber,
           pageSize,
+          mangaTitle,
+          title,
+          number,
         })
       );
     } catch (error) {

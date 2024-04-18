@@ -10,10 +10,10 @@ import {
   UUID,
 } from "../../../shared/src/types/primitives/Identifiers";
 import { ResponsePage } from "../../../shared/src/types/responses/ResponsePage";
-import { DefaultValues } from "../config/default-values";
 import { PrismaClient } from "../config/prisma/generated/client";
 import PrismaConverterService from "../services/PrismaConverter.service";
 import intersiteMangasController from "./intersite-mangas.controller";
+import AdditionalPropsService from "../services/AdditionalProps.service";
 
 class IntersiteChaptersController {
   private prisma;
@@ -26,23 +26,35 @@ class IntersiteChaptersController {
     srcs?: SourceName[];
     pageNumber?: number;
     pageSize?: number;
-    chapterFormattedName?: string;
-    mangaFormattedName?: string;
+    formattedName?: string;
+    intersiteMangaFormattedName?: string;
+    chapterTitle?: string;
+    chapterNumber?: string;
   }): Promise<ResponsePage<IntersiteChapter>> {
-    const pageSize = props.pageSize ?? DefaultValues.PAGE_SIZE;
-    const pageNumber = props.pageNumber ?? 1;
+    const { pageSize, pageNumber, take, skip } =
+      AdditionalPropsService.page(props);
+    const { chapterTitle, chapterNumber } =
+      AdditionalPropsService.intersiteChaptersQuery(props);
     const intersiteChapters = await this.prisma.intersiteChapter.findMany({
-      skip: (pageNumber - 1) * pageSize,
-      take: pageSize,
+      skip,
+      take,
       where: {
-        formattedName: props.chapterFormattedName,
+        formattedName: props.formattedName,
         intersiteManga: {
-          formattedName: props.mangaFormattedName,
+          formattedName: props.intersiteMangaFormattedName,
         },
         chapters: {
           every: {
             src: {
               in: props.srcs,
+            },
+            title: {
+              contains: chapterTitle,
+              mode: "insensitive",
+            },
+            number: {
+              contains: chapterNumber,
+              mode: "insensitive",
             },
           },
         },
@@ -74,10 +86,13 @@ class IntersiteChaptersController {
     props: UUID | { formattedName: ChapterFormattedName }
   ): Promise<IntersiteChapter | undefined> {
     let where = {};
+    console.log(props);
     if (isUUID(props)) {
       where = { id: props };
     } else {
+      where = { formattedName: props.formattedName };
     }
+    console.log(props);
     const intersiteChapter = await this.prisma.intersiteChapter.findFirst({
       where,
       include: { intersiteManga: true, chapters: true },

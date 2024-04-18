@@ -12,6 +12,7 @@ import { DefaultValues } from "../config/default-values";
 import { PrismaClient } from "../config/prisma/generated/client";
 import PrismaConverterService from "../services/PrismaConverter.service";
 import intersiteMangasController from "./intersite-mangas.controller";
+import AdditionalPropsService from "../services/AdditionalProps.service";
 
 class MangasController {
   private prisma;
@@ -24,17 +25,27 @@ class MangasController {
     srcs?: SourceName[];
     pageNumber?: number;
     pageSize?: number;
+    title?: string;
+    author?: string;
   }): Promise<ResponsePage<StoredManga>> {
-    const pageSize = props.pageSize ?? DefaultValues.PAGE_SIZE;
-    const pageNumber = props.pageNumber ?? 1;
+    const { pageSize, pageNumber, take, skip } =
+      AdditionalPropsService.page(props);
+    const { title, author } = AdditionalPropsService.mangaQuery(props);
     const mangas = await this.prisma.manga.findMany({
-      skip: (pageNumber - 1) * pageSize,
-      take: pageSize,
-      where: { src: { in: props.srcs } },
+      skip,
+      take,
+      where: {
+        src: { in: props.srcs },
+        title: { contains: title, mode: "insensitive" },
+        author: { contains: author, mode: "insensitive", not: author && null },
+      },
+      include: {
+        intersiteManga: true,
+      },
     });
     return {
       elements: mangas.map((m) =>
-        PrismaConverterService.PrismaMangaToStoredManga(m)
+        PrismaConverterService.PrismaMangaToStoredManga(m, m.intersiteManga!)
       ),
       pageNumber,
       pageSize,
@@ -52,10 +63,16 @@ class MangasController {
     }
     const manga = await this.prisma.manga.findFirst({
       where,
+      include: {
+        intersiteManga: true,
+      },
     });
     return manga === null
       ? undefined
-      : PrismaConverterService.PrismaMangaToStoredManga(manga);
+      : PrismaConverterService.PrismaMangaToStoredManga(
+          manga,
+          manga.intersiteManga!
+        );
   }
 
   public async save(manga: Manga): Promise<StoredManga> {
@@ -80,19 +97,25 @@ class MangasController {
       where: { src: manga.src, endpoint: manga.endpoint },
       create: newMangaData,
       update: newMangaData,
+      include: {
+        intersiteManga: true,
+      },
     });
-    return PrismaConverterService.PrismaMangaToStoredManga(newManga);
+    return PrismaConverterService.PrismaMangaToStoredManga(
+      newManga,
+      newManga.intersiteManga!
+    );
   }
 
   public async getChaptersOf(
     id: UUID,
     props: { srcs?: SourceName[]; pageNumber?: number; pageSize?: number }
   ): Promise<ResponsePage<IdentifiedChapter>> {
-    const pageSize = props.pageSize ?? DefaultValues.PAGE_SIZE;
-    const pageNumber = props.pageNumber ?? 1;
+    const { pageSize, pageNumber, take, skip } =
+      AdditionalPropsService.page(props);
     const mangas = await this.prisma.chapter.findMany({
-      skip: (pageNumber - 1) * pageSize,
-      take: pageSize,
+      skip,
+      take,
       where: { src: { in: props.srcs }, manga: { id } },
       orderBy: { releaseDate: "desc" },
     });

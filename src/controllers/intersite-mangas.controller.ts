@@ -13,6 +13,7 @@ import { ResponsePage } from "../../../shared/src/types/responses/ResponsePage";
 import { DefaultValues } from "../config/default-values";
 import { PrismaClient } from "../config/prisma/generated/client";
 import PrismaConverterService from "../services/PrismaConverter.service";
+import AdditionalPropsService from "../services/AdditionalProps.service";
 
 class IntersiteMangasController {
   private prisma;
@@ -25,20 +26,32 @@ class IntersiteMangasController {
     srcs?: SourceName[];
     pageNumber?: number;
     pageSize?: number;
-    chapterFormattedName?: string;
-    mangaFormattedName?: string;
+    formattedName?: string;
+    mangaTitle?: string;
+    mangaAuthor?: string;
   }): Promise<ResponsePage<IntersiteManga>> {
-    const pageSize = props.pageSize ?? DefaultValues.PAGE_SIZE;
-    const pageNumber = props.pageNumber ?? 1;
+    const { pageSize, pageNumber, take, skip } =
+      AdditionalPropsService.page(props);
+    const { mangaTitle, mangaAuthor } =
+      AdditionalPropsService.intersiteMangasQuery(props);
     const intersiteMangas = await this.prisma.intersiteManga.findMany({
-      skip: (pageNumber - 1) * pageSize,
-      take: pageSize,
+      skip,
+      take,
       where: {
-        formattedName: props.chapterFormattedName,
+        formattedName: props.formattedName,
         mangas: {
           every: {
             src: {
               in: props.srcs,
+            },
+            title: {
+              contains: mangaTitle,
+              mode: "insensitive",
+            },
+            author: {
+              contains: mangaAuthor,
+              mode: "insensitive",
+              not: mangaAuthor && null,
             },
           },
         },
@@ -109,11 +122,11 @@ class IntersiteMangasController {
     id: UUID,
     props: { srcs?: SourceName[]; pageNumber?: number; pageSize?: number }
   ): Promise<ResponsePage<ParentlessIntersiteChapter>> {
-    const pageSize = props.pageSize ?? DefaultValues.PAGE_SIZE;
-    const pageNumber = props.pageNumber ?? 1;
+    const { pageSize, pageNumber, take, skip } =
+      AdditionalPropsService.page(props);
     const intersiteChapters = await this.prisma.intersiteChapter.findMany({
-      skip: (pageNumber - 1) * pageSize,
-      take: pageSize,
+      skip,
+      take,
       where: {
         intersiteManga: { id },
         chapters: { every: { src: { in: props.srcs } } },

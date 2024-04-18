@@ -48,7 +48,10 @@ class PrismaConverter {
     };
   }
 
-  public PrismaMangaToStoredManga(manga: PrismaManga): StoredManga {
+  public PrismaMangaToStoredManga(
+    manga: PrismaManga,
+    intersiteManga: PrismaIntersiteManga
+  ): StoredManga {
     return {
       id: manga.id,
       src: manga.src,
@@ -56,6 +59,10 @@ class PrismaConverter {
       title: manga.title,
       author: manga.author ?? undefined,
       image: manga.image ?? undefined,
+      intersiteManga: {
+        id: intersiteManga.id,
+        formattedName: intersiteManga.formattedName,
+      },
     };
   }
 

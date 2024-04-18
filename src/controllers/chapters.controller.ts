@@ -1,5 +1,4 @@
 import {
-  Chapter,
   ScrapedChapter,
   StoredChapter,
 } from "../../../shared/src/types/Chapter";
@@ -10,12 +9,11 @@ import {
 } from "../../../shared/src/types/primitives/Identifiers";
 import { ResponsePage } from "../../../shared/src/types/responses/ResponsePage";
 import { TextFormatUtils } from "../../../shared/src/utils/text-format-utils";
-import config from "../config/config";
-import { DefaultValues } from "../config/default-values";
 import { PrismaClient } from "../config/prisma/generated/client";
 import PrismaConverterService from "../services/PrismaConverter.service";
 import intersiteChaptersController from "./intersite-chapters.controller";
 import mangasController from "./mangas-controller";
+import AdditionalPropsService from "../services/AdditionalProps.service";
 
 class ChaptersController {
   private prisma;
@@ -29,13 +27,25 @@ class ChaptersController {
     gte_date?: Date;
     pageNumber?: number;
     pageSize?: number;
+    mangaTitle?: string;
+    title?: string;
+    number?: string;
   }): Promise<ResponsePage<StoredChapter>> {
-    const pageSize = props.pageSize ?? DefaultValues.PAGE_SIZE;
-    const pageNumber = props.pageNumber ?? 1;
+    const { pageSize, pageNumber, take, skip } =
+      AdditionalPropsService.page(props);
+    const { mangaTitle, number, title } =
+      AdditionalPropsService.chapterQuery(props);
     const chapters = await this.prisma.chapter.findMany({
-      skip: (pageNumber - 1) * pageSize,
-      take: pageSize,
-      where: { src: { in: props.srcs } },
+      skip,
+      take,
+      where: {
+        src: { in: props.srcs },
+        title: { contains: title, mode: "insensitive" },
+        number: { contains: number, mode: "insensitive" },
+        manga: {
+          title: { contains: mangaTitle, mode: "insensitive" },
+        },
+      },
       orderBy: { releaseDate: "desc" },
       include: {
         manga: {
@@ -112,6 +122,7 @@ class ChaptersController {
       ),
     });
     if (!intersiteChapter) {
+      console.log("create new intersitechapter");
       intersiteChapter = await intersiteChaptersController.save({
         formattedName: TextFormatUtils.formatChapterName(
           chapter.number,
@@ -121,6 +132,11 @@ class ChaptersController {
           chapter.manga.title
         ),
       });
+    } else {
+      console.log(
+        "use old intersiteCHapters",
+        TextFormatUtils.formatChapterName(chapter.number, chapter.manga.title)
+      );
     }
 
     //CREATING CHAPTER

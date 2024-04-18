@@ -11,11 +11,14 @@ intersiteMangasRouter.get("/", async (req: Request, res: Response) => {
     const srcs = RoutingUtils.convertQueryParamToArray(req.query.srcs);
     const pageNumber = RoutingUtils.convertQueryParamToNumber(req.query.page);
     const pageSize = RoutingUtils.convertQueryParamToNumber(req.query.limit);
-    const chapterFormattedName = RoutingUtils.convertQueryParamToString(
-      req.query.chapterFormattedName
+    const formattedName = RoutingUtils.convertQueryParamToString(
+      req.query.formattedName
     );
-    const mangaFormattedName = RoutingUtils.convertQueryParamToString(
-      req.query.mangaFormattedName
+    const mangaTitle = RoutingUtils.convertQueryParamToString(
+      req.query.mangaTitle
+    );
+    const mangaAuthor = RoutingUtils.convertQueryParamToString(
+      req.query.mangaAuthor
     );
     if (srcs && !config.areValidSrcs(srcs)) {
       res.status(400).send("srcs must be valid source names");
@@ -27,8 +30,9 @@ intersiteMangasRouter.get("/", async (req: Request, res: Response) => {
           srcs: srcs as SourceName[],
           pageNumber,
           pageSize,
-          chapterFormattedName,
-          mangaFormattedName,
+          formattedName,
+          mangaTitle,
+          mangaAuthor,
         })
       );
     } catch (error) {
