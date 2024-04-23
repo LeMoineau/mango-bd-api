@@ -125,8 +125,6 @@ class IntersiteMangasController {
     const { pageSize, pageNumber, take, skip } =
       AdditionalPropsService.page(props);
     const intersiteChapters = await this.prisma.intersiteChapter.findMany({
-      skip,
-      take,
       where: {
         intersiteManga: { id },
         chapters: { every: { src: { in: props.srcs } } },
@@ -142,16 +140,21 @@ class IntersiteMangasController {
             image: true,
             releaseDate: true,
           },
+          orderBy: {
+            number: "asc",
+          },
         },
       },
     });
     return {
-      elements: intersiteChapters.map((ic) =>
-        PrismaConverterService.PrismaIntersiteChapterToParentlessIntersiteChapter(
-          ic,
-          ic.chapters!
-        )
-      ),
+      elements: intersiteChapters
+        .filter((_, index) => index >= skip && index < skip + take)
+        .map((ic) =>
+          PrismaConverterService.PrismaIntersiteChapterToParentlessIntersiteChapter(
+            ic,
+            ic.chapters!
+          )
+        ),
       pageNumber,
       pageSize,
     };

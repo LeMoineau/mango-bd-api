@@ -122,7 +122,6 @@ class ChaptersController {
       ),
     });
     if (!intersiteChapter) {
-      console.log("create new intersitechapter");
       intersiteChapter = await intersiteChaptersController.save({
         formattedName: TextFormatUtils.formatChapterName(
           chapter.number,
@@ -132,11 +131,6 @@ class ChaptersController {
           chapter.manga.title
         ),
       });
-    } else {
-      console.log(
-        "use old intersiteCHapters",
-        TextFormatUtils.formatChapterName(chapter.number, chapter.manga.title)
-      );
     }
 
     //CREATING CHAPTER
@@ -157,6 +151,53 @@ class ChaptersController {
       endpoint: manga.endpoint,
       title: manga.title,
     });
+  }
+
+  public async getLatestChapters(props: {
+    srcs?: SourceName[];
+    gte_date?: Date;
+    pageNumber?: number;
+    pageSize?: number;
+    mangaTitle?: string;
+    title?: string;
+    number?: string;
+  }): Promise<ResponsePage<StoredChapter>> {
+    const { pageSize, pageNumber, take, skip } =
+      AdditionalPropsService.page(props);
+    const { mangaTitle, number, title } =
+      AdditionalPropsService.chapterQuery(props);
+    const chapters = await this.prisma.chapter.findMany({
+      skip,
+      take,
+      where: {
+        src: { in: props.srcs },
+        title: { contains: title, mode: "insensitive" },
+        number: { contains: number, mode: "insensitive" },
+        manga: {
+          title: { contains: mangaTitle, mode: "insensitive" },
+        },
+        releaseDate: {
+          not: null,
+        },
+      },
+      orderBy: { releaseDate: "desc" },
+      include: {
+        manga: {
+          select: {
+            id: true,
+            title: true,
+            endpoint: true,
+          },
+        },
+      },
+    });
+    return {
+      elements: chapters.map((c) =>
+        PrismaConverterService.PrismaChapterToStoredChapter(c, c.manga!)
+      ),
+      pageNumber,
+      pageSize,
+    };
   }
 
   // public async saveAll(src: SourceName, chapters: Chapter[]) {

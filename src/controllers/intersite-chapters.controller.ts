@@ -86,13 +86,11 @@ class IntersiteChaptersController {
     props: UUID | { formattedName: ChapterFormattedName }
   ): Promise<IntersiteChapter | undefined> {
     let where = {};
-    console.log(props);
     if (isUUID(props)) {
       where = { id: props };
     } else {
       where = { formattedName: props.formattedName };
     }
-    console.log(props);
     const intersiteChapter = await this.prisma.intersiteChapter.findFirst({
       where,
       include: { intersiteManga: true, chapters: true },
