@@ -22,6 +22,7 @@ model Chapter {
   id                 String            @id @default(uuid())
   src                Source
   endpoint           String
+  url                String
   title              String
   number             String
   image              String?
@@ -36,6 +37,7 @@ model Manga {
   id               String          @id @default(uuid())
   src              Source
   endpoint         String          @unique //id on the website
+  url              String
   title            String
   author           String?
   image            String?

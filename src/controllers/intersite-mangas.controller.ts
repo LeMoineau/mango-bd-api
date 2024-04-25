@@ -62,6 +62,7 @@ class IntersiteMangasController {
             id: true,
             src: true,
             endpoint: true,
+            url: true,
             title: true,
             author: true,
             image: true,
@@ -134,6 +135,7 @@ class IntersiteMangasController {
           select: {
             id: true,
             title: true,
+            url: true,
             number: true,
             src: true,
             endpoint: true,

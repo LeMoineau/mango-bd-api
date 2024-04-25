@@ -53,6 +53,7 @@ class ChaptersController {
             id: true,
             title: true,
             endpoint: true,
+            url: true,
           },
         },
       },
@@ -110,6 +111,7 @@ class ChaptersController {
       manga = await mangasController.save({
         src: chapter.src,
         endpoint: chapter.manga.endpoint,
+        url: chapter.manga.url,
         title: chapter.manga.title,
       });
     }
@@ -138,6 +140,7 @@ class ChaptersController {
       data: {
         endpoint: chapter.endpoint,
         src: chapter.src,
+        url: chapter.url,
         title: chapter.title,
         number: chapter.number,
         image: chapter.image,
@@ -149,6 +152,7 @@ class ChaptersController {
     return PrismaConverterService.PrismaChapterToStoredChapter(res, {
       id: manga.id,
       endpoint: manga.endpoint,
+      url: manga.url,
       title: manga.title,
     });
   }
@@ -187,6 +191,7 @@ class ChaptersController {
             id: true,
             title: true,
             endpoint: true,
+            url: true,
           },
         },
       },

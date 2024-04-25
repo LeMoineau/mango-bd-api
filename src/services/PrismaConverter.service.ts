@@ -27,6 +27,7 @@ class PrismaConverter {
       id: chapter.id,
       src: chapter.src,
       endpoint: chapter.endpoint,
+      url: chapter.url,
       title: chapter.title,
       number: chapter.number,
       image: chapter.image ?? undefined,
@@ -43,6 +44,7 @@ class PrismaConverter {
       manga: {
         id: manga.id,
         endpoint: manga.endpoint,
+        url: manga.url,
         title: manga.title,
       },
     };
@@ -56,6 +58,7 @@ class PrismaConverter {
       id: manga.id,
       src: manga.src,
       endpoint: manga.endpoint,
+      url: manga.url,
       title: manga.title,
       author: manga.author ?? undefined,
       image: manga.image ?? undefined,
@@ -77,8 +80,9 @@ class PrismaConverter {
       formattedName: intersiteChapter.formattedName,
       chapters: chapters.map((c) => ({
         id: c.id,
-        endpoint: c.endpoint,
         src: c.src,
+        endpoint: c.endpoint,
+        url: c.url,
         title: c.title,
         number: c.number,
         image: c.image ?? undefined,
@@ -116,6 +120,7 @@ class PrismaConverter {
       mangas: mangas.map((m) => ({
         id: m.id,
         endpoint: m.endpoint,
+        url: m.url,
         src: m.src,
         title: m.title,
         author: m.author ?? undefined,

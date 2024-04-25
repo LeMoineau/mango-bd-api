@@ -88,6 +88,7 @@ class MangasController {
     const newMangaData = {
       src: manga.src,
       endpoint: manga.endpoint,
+      url: manga.url,
       title: manga.title,
       intersiteMangaId: intersiteManga.id,
       author: manga.author,

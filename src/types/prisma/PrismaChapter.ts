@@ -5,6 +5,7 @@ export interface PrismaChapter extends Identified {
   id: string;
   endpoint: string;
   src: Source;
+  url: string;
   number: string;
   title: string;
   image: string | null;
