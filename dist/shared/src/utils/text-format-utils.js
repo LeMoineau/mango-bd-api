@@ -3,18 +3,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.TextFormatUtils = void 0;
 var TextFormatUtils;
 (function (TextFormatUtils) {
-    function formatChapterNumber(chapterNumber) {
+    function formatChapterName(chapterNumber, chapterMangaTitle) {
         let res = chapterNumber.trim().replace(/[^0-9\-]+/g, "");
         try {
-            const numberRes = Number(res); // to remove left 0 as "045"
-            if (!Number.isNaN(numberRes)) {
-                res = `${numberRes}`;
+            if (isNumber(res)) {
+                res = `${Number(res)}`;
             }
         }
         catch (_a) { }
-        return res;
+        return `${formatMangaTitle(chapterMangaTitle)}-${res}`;
     }
-    TextFormatUtils.formatChapterNumber = formatChapterNumber;
+    TextFormatUtils.formatChapterName = formatChapterName;
     function formatMangaTitle(title) {
         let res = title
             .trim()

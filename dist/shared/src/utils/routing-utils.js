@@ -61,6 +61,9 @@ var RoutingUtils;
         if (!queryParam) {
             return;
         }
+        if (typeof queryParam === "boolean") {
+            return queryParam;
+        }
         if (typeof queryParam === "string") {
             return queryParam.toLowerCase() === "true";
         }
@@ -75,7 +78,8 @@ var RoutingUtils;
      */
     function convertQueryParamToNumber(queryParam) {
         try {
-            return Number(queryParam);
+            const res = Number(queryParam);
+            return isNaN(res) ? undefined : res;
         }
         catch (err) {
             throw new RoutingError_1.default(`"${queryParam}" is not a number`);

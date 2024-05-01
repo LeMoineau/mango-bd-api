@@ -1,16 +1,18 @@
 {
-  "name": "manga-scraper-api",
+  "name": "mango-bd-api",
   "version": "1.0.0",
-  "description": "manga scraper api",
-  "main": "dist/mango-scraper-api/src/index.js",
+  "description": "mango bd api",
+  "main": "dist/mango-bd-api/src/index.js",
   "scripts": {
-    "build": "rimraf ./dist && tsc",
+    "build": "rimraf ./dist && tsc && npm run copy:prisma-generated && npm run remove:prisma-migrations",
     "dev": "dotenv -e .env.development -- npx nodemon src/index.ts",
     "test": "vitest",
     "coverage": "vitest run --coverage",
     "postinstall": "prisma generate",
     "prisma:generate": "dotenv -e .env.development -- npx prisma generate",
-    "prisma:migrate": "dotenv -e .env.development -- npx prisma migrate dev --name=migration"
+    "prisma:migrate": "dotenv -e .env.development -- npx prisma migrate dev --name=migration",
+    "copy:prisma-generated": "cpx ./src/config/prisma/**/* ./dist/mango-bd-api/src/config/prisma",
+    "remove:prisma-migrations": "rimraf ./dist/mango-bd-api/src/config/prisma/migrations"
   },
   "prisma": {
     "schema": "./src/config/prisma/schema.prisma"

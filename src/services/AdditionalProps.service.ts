@@ -3,7 +3,7 @@ import { DefaultValues } from "../config/default-values";
 class AdditionalPropsService {
   private toMinLengthString(str?: string): string | undefined {
     return str && str.length < DefaultValues.MIN_SEARCH_LENGTH
-      ? undefined
+      ? "jesuisintrouvable"
       : str;
   }
 

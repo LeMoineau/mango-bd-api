@@ -9,23 +9,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const client_1 = require("./../config/prisma/generated/client");
-class LatestChaptersController {
-    constructor() {
-        this.prisma = new client_1.PrismaClient();
-    }
-    get({ srcs, }) {
+exports.ObjectUtils = void 0;
+var ObjectUtils;
+(function (ObjectUtils) {
+    function forEachKeyInObject(object, callback) {
         return __awaiter(this, void 0, void 0, function* () {
-            const chaptersBySrc = {};
-            const chapters = this.prisma.chapter.findMany({
-                where: {
-                    src: { in: ["MANGAPLUS", "MANGASAKI"] },
-                    OR: [{ releaseDate: { gte: new Date() } }, { releaseDate: null }],
-                },
-            });
-            console.log(chapters);
-            return [];
+            for (let key of Object.keys(object)) {
+                yield callback(key, object[key]);
+            }
         });
     }
-}
-exports.default = new LatestChaptersController();
+    ObjectUtils.forEachKeyInObject = forEachKeyInObject;
+})(ObjectUtils || (exports.ObjectUtils = ObjectUtils = {}));

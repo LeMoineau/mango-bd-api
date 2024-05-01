@@ -1,172 +1,116 @@
 "use strict";
-// import ChapterViewer from "@shared/types/chapterViewer";
-// import {
-//   IntersiteManga,
-//   IntersiteMangaInfos,
-// } from "@shared/types/intersite/IntersiteManga";
-// import Manga, { MangaSearchInfos } from "@shared/types/manga";
-// import { IntersiteUtils } from "../utils/intersite-utils";
-// import config from "../config/config";
-// import mangaIdsCacherService from "../services/manga-ids-cacher.service";
-// import {
-//   ChapterId,
-//   FormattedName,
-//   FormattedNumber,
-//   MangaId,
-//   SourceName,
-// } from "@shared/types/primitives/Identifiers";
-// import chapterViewerCacherService from "../services/chapter-viewers-cacher.service";
-// import { IntersiteChapterViewer } from "@shared/types/intersite/IntersiteChapterViewer";
-// import chapterIdsCacherService from "./../services/chapter-ids-cacher.service";
-// class MangasController {
-//   public constructor() {}
-//   public async getAll({
-//     query,
-//     srcs,
-//     ids,
-//   }: {
-//     query?: string;
-//     srcs?: SourceName[];
-//     ids?: string[];
-//   }): Promise<IntersiteMangaInfos[]> {
-//     let mangas: { [src in SourceName]?: MangaSearchInfos[] } = {};
-//     if (!ids && query) {
-//       // Par recherche
-//       for (let src of srcs ? srcs : config.getEnabledSource()) {
-//         mangas[src] = await config.getScraperOfSrc(src).getMangas({
-//           q: query,
-//         });
-//       }
-//     } else if (srcs && ids && srcs.length === ids.length) {
-//       // Par sources et ids
-//       for (let i = 0; i < srcs.length; i++) {
-//         mangas[srcs[i]] = [
-//           await config.getScraperOfSrc(srcs[i]).getManga(ids[i]),
-//         ];
-//       }
-//     }
-//     const intersiteMangasInfos =
-//       IntersiteUtils.convertMangasInfosToIntersiteMangasInfos(mangas);
-//     mangaIdsCacherService.saveFormattedNamesFromMangasInfos(
-//       intersiteMangasInfos
-//     );
-//     return intersiteMangasInfos;
-//   }
-//   public async getByFormattedName({
-//     formattedName,
-//     srcs,
-//     dontDigIn,
-//   }: {
-//     formattedName: string;
-//     srcs?: SourceName[];
-//     dontDigIn?: boolean;
-//   }): Promise<IntersiteManga | undefined> {
-//     const mangaIds = await mangaIdsCacherService.getMangaIdsFromFormattedName(
-//       formattedName,
-//       dontDigIn
-//     );
-//     if (!mangaIds) {
-//       return;
-//     }
-//     const mangasBySrc: { [key in SourceName]?: Manga[] } = {};
-//     for (let src of Object.keys(mangaIds) as SourceName[]) {
-//       if (srcs && !srcs.includes(src)) {
-//         continue;
-//       }
-//       mangasBySrc[src] = [await this.getById(src, mangaIds[src])];
-//     }
-//     const intersiteMangas =
-//       IntersiteUtils.convertMangasToIntersiteMangas(mangasBySrc);
-//     if (intersiteMangas.length <= 0) {
-//       return;
-//     }
-//     const targetIntersiteManga = intersiteMangas[0];
-//     for (let c of targetIntersiteManga.chapters) {
-//       chapterIdsCacherService.assignChapterIdsToFormattedKeys(
-//         targetIntersiteManga.formattedName,
-//         c.formattedNumber,
-//         c.id
-//       );
-//     }
-//     return targetIntersiteManga;
-//   }
-//   public async getById(src: SourceName, mangaId: MangaId): Promise<Manga> {
-//     return await config.getScraperOfSrc(src).getManga(mangaId);
-//   }
-//   public async getChapterByFormattedKey({
-//     formattedName,
-//     formattedNumber,
-//     srcs,
-//     dontDigIn,
-//   }: {
-//     formattedName: FormattedName;
-//     formattedNumber: FormattedNumber;
-//     srcs?: SourceName[];
-//     dontDigIn?: boolean;
-//   }): Promise<IntersiteChapterViewer | undefined> {
-//     const mangaIds = await mangaIdsCacherService.getMangaIdsFromFormattedName(
-//       formattedName,
-//       dontDigIn ?? true
-//     );
-//     if (!mangaIds) {
-//       console.log("pas de mangaIds");
-//       return;
-//     }
-//     const chapterIds = chapterIdsCacherService.getChapterIdsFromFormattedKeys(
-//       formattedName,
-//       formattedNumber
-//     );
-//     if (!chapterIds) {
-//       console.log("pas de chapter ids");
-//       return;
-//     }
-//     const chapterViewerBySrc: { [src in SourceName]?: ChapterViewer } = {};
-//     for (let src of srcs ?? (Object.keys(chapterIds) as SourceName[])) {
-//       chapterViewerBySrc[src] = await this.getChapterById(
-//         src,
-//         mangaIds[src],
-//         chapterIds[src]
-//       );
-//     }
-//     return IntersiteUtils.convertChapterViewerBySrcToIntersiteChapterViewer(
-//       chapterViewerBySrc,
-//       formattedNumber
-//     );
-//   }
-//   public async getChapterById(
-//     src: SourceName,
-//     mangaId: MangaId,
-//     chapterId: ChapterId
-//   ): Promise<ChapterViewer> {
-//     const chapterViewer = await config
-//       .getScraperOfSrc(src)
-//       .getChapterViewer(mangaId, chapterId);
-//     chapterViewerCacherService.saveNewChapterViewer(
-//       src,
-//       mangaId,
-//       chapterId,
-//       chapterViewer
-//     );
-//     return chapterViewer;
-//   }
-//   public async getChapterPageById(
-//     src: SourceName,
-//     mangaId: MangaId,
-//     chapterId: ChapterId,
-//     pageNb: number
-//   ): Promise<Buffer | undefined> {
-//     let chapterViewer = chapterViewerCacherService.getChapterViewer(
-//       src,
-//       mangaId,
-//       chapterId
-//     );
-//     if (!chapterViewer) {
-//       chapterViewer = await this.getChapterById(src, mangaId, chapterId);
-//     }
-//     if (pageNb <= 0 && pageNb > chapterViewer.pages.length) {
-//       return;
-//     }
-//     return await config.getScraperOfSrc(src).getPage(chapterViewer, pageNb);
-//   }
-// }
-// export default new MangasController();
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const Identifiers_1 = require("../../../shared/src/types/primitives/Identifiers");
+const text_format_utils_1 = require("../../../shared/src/utils/text-format-utils");
+const client_1 = require("../config/prisma/generated/client");
+const PrismaConverter_service_1 = __importDefault(require("../services/PrismaConverter.service"));
+const intersite_mangas_controller_1 = __importDefault(require("./intersite-mangas.controller"));
+const AdditionalProps_service_1 = __importDefault(require("../services/AdditionalProps.service"));
+class MangasController {
+    constructor() {
+        this.prisma = new client_1.PrismaClient();
+    }
+    getAll(props) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { pageSize, pageNumber, take, skip } = AdditionalProps_service_1.default.page(props);
+            const { title, author } = AdditionalProps_service_1.default.mangaQuery(props);
+            const mangas = yield this.prisma.manga.findMany({
+                skip,
+                take,
+                where: {
+                    src: { in: props.srcs },
+                    title: { contains: title, mode: "insensitive" },
+                    author: { contains: author, mode: "insensitive", not: author && null },
+                },
+                include: {
+                    intersiteManga: true,
+                },
+            });
+            return {
+                elements: mangas.map((m) => PrismaConverter_service_1.default.PrismaMangaToStoredManga(m, m.intersiteManga)),
+                pageNumber,
+                pageSize,
+            };
+        });
+    }
+    get(props) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let where = {};
+            if ((0, Identifiers_1.isUUID)(props)) {
+                where = { id: props };
+            }
+            else {
+                where = { endpoint: props.endpoint, src: props.src };
+            }
+            const manga = yield this.prisma.manga.findFirst({
+                where,
+                include: {
+                    intersiteManga: true,
+                },
+            });
+            return manga === null
+                ? undefined
+                : PrismaConverter_service_1.default.PrismaMangaToStoredManga(manga, manga.intersiteManga);
+        });
+    }
+    save(manga) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const mangaFormattedName = text_format_utils_1.TextFormatUtils.formatMangaTitle(manga.title);
+            let intersiteManga = yield intersite_mangas_controller_1.default.get({
+                formattedName: mangaFormattedName,
+            });
+            if (!intersiteManga) {
+                intersiteManga = yield intersite_mangas_controller_1.default.save({
+                    formattedName: mangaFormattedName,
+                });
+            }
+            const newMangaData = {
+                src: manga.src,
+                endpoint: manga.endpoint,
+                url: manga.url,
+                title: manga.title,
+                intersiteMangaId: intersiteManga.id,
+                author: manga.author,
+                image: manga.image,
+            };
+            const newManga = yield this.prisma.manga.upsert({
+                where: { src: manga.src, endpoint: manga.endpoint },
+                create: newMangaData,
+                update: newMangaData,
+                include: {
+                    intersiteManga: true,
+                },
+            });
+            return PrismaConverter_service_1.default.PrismaMangaToStoredManga(newManga, newManga.intersiteManga);
+        });
+    }
+    getChaptersOf(id, props) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { pageSize, pageNumber, take, skip } = AdditionalProps_service_1.default.page(props);
+            const mangas = yield this.prisma.chapter.findMany({
+                skip,
+                take,
+                where: { src: { in: props.srcs }, manga: { id } },
+                orderBy: { releaseDate: "desc" },
+            });
+            return {
+                elements: mangas.map((m) => PrismaConverter_service_1.default.PrismaChapterToIdentifiedChapter(m)),
+                pageNumber,
+                pageSize,
+            };
+        });
+    }
+}
+exports.default = new MangasController();

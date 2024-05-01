@@ -1,0 +1,81 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider        = "prisma-client-js"
+  output          = "./generated/client"
+  previewFeatures = ["fullTextSearch"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("POSTGRES_URL") // uses connection pooling
+  // directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+
+enum Source {
+  mangaplus
+  mangasaki
+}
+
+model Chapter {
+  id                 String            @id @default(uuid())
+  src                Source
+  endpoint           String
+  url                String
+  title              String
+  number             String
+  image              String?
+  releaseDate        DateTime?
+  manga              Manga?            @relation(fields: [mangaId], references: [id])
+  mangaId            String
+  intersiteChapter   IntersiteChapter? @relation(fields: [intersiteChapterId], references: [id])
+  intersiteChapterId String?
+}
+
+model Manga {
+  id               String          @id @default(uuid())
+  src              Source
+  endpoint         String          @unique //id on the website
+  url              String
+  title            String
+  author           String?
+  image            String?
+  chapters         Chapter[]
+  intersiteManga   IntersiteManga? @relation(fields: [intersiteMangaId], references: [id])
+  intersiteMangaId String?
+}
+
+model IntersiteChapter {
+  id               String          @id @default(uuid())
+  formattedName    String          @unique
+  intersiteManga   IntersiteManga? @relation(fields: [intersiteMangaId], references: [id])
+  intersiteMangaId String
+  chapters         Chapter[]
+}
+
+model IntersiteManga {
+  id               String             @id @default(uuid())
+  formattedName    String             @unique
+  mangas           Manga[]
+  intersiteChapter IntersiteChapter[]
+}
+
+// model User {
+//   id    String  @id @default(uuid())
+//   email String  @unique
+//   name  String?
+//   posts Post[]
+// }
+
+// model Post {
+//   id        String   @id @default(uuid())
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+//   title     String
+//   content   String?
+//   published Boolean  @default(false)
+//   viewCount Int      @default(0)
+//   author    User?    @relation(fields: [authorId], references: [id])
+//   authorId  String?
+// }

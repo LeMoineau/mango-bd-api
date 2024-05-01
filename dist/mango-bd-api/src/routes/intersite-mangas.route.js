@@ -15,27 +15,28 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const routing_utils_1 = require("../../../shared/src/utils/routing-utils");
 const config_1 = __importDefault(require("../config/config"));
-const mangas_controller_1 = __importDefault(require("../controllers/mangas-controller"));
-const Manga_1 = require("../../../shared/src/types/Manga");
-const mangasRouter = (0, express_1.Router)();
-mangasRouter.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const intersite_mangas_controller_1 = __importDefault(require("../controllers/intersite-mangas.controller"));
+const intersiteMangasRouter = (0, express_1.Router)();
+intersiteMangasRouter.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const srcs = routing_utils_1.RoutingUtils.convertQueryParamToArray(req.query.srcs);
         const pageNumber = routing_utils_1.RoutingUtils.convertQueryParamToNumber(req.query.page);
         const pageSize = routing_utils_1.RoutingUtils.convertQueryParamToNumber(req.query.limit);
-        const title = routing_utils_1.RoutingUtils.convertQueryParamToString(req.query.title);
-        const author = routing_utils_1.RoutingUtils.convertQueryParamToString(req.query.author);
+        const formattedName = routing_utils_1.RoutingUtils.convertQueryParamToString(req.query.formattedName);
+        const mangaTitle = routing_utils_1.RoutingUtils.convertQueryParamToString(req.query.mangaTitle);
+        const mangaAuthor = routing_utils_1.RoutingUtils.convertQueryParamToString(req.query.mangaAuthor);
         if (srcs && !config_1.default.areValidSrcs(srcs)) {
             res.status(400).send("srcs must be valid source names");
             return;
         }
         try {
-            res.send(yield mangas_controller_1.default.getAll({
+            res.send(yield intersite_mangas_controller_1.default.getAll({
                 srcs: srcs,
                 pageNumber,
                 pageSize,
-                title,
-                author,
+                formattedName,
+                mangaTitle,
+                mangaAuthor,
             }));
         }
         catch (error) {
@@ -46,38 +47,10 @@ mangasRouter.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* 
     catch (error) {
         res
             .status(400)
-            .send("wrong paramters: request query could contains page, limit and srcs (SourceName[])");
+            .send("wrong paramters: request query could contains page, limit and srcs (SourceName[]), chapterFormattedName and mangaFormattedName");
     }
 }));
-mangasRouter.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    if (!req.body || !req.body.manga) {
-        res
-            .status(400)
-            .send("miss paramters: request body must contains manga (Manga)");
-        return;
-    }
-    try {
-        const manga = req.body.manga;
-        if (!(0, Manga_1.isManga)(manga)) {
-            res.status(400).send("manga must be a Manga");
-            return;
-        }
-        try {
-            res.send(yield mangas_controller_1.default.save(manga));
-        }
-        catch (err) {
-            console.error(err);
-            res.status(500).send(err);
-        }
-    }
-    catch (err) {
-        console.error(err);
-        res
-            .status(400)
-            .send("wrong paramters: request body must contains chapter (ScrapedChapter)");
-    }
-}));
-mangasRouter.get("/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+intersiteMangasRouter.get("/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const id = routing_utils_1.RoutingUtils.convertQueryParamToString(req.params.id);
         if (!id) {
@@ -85,12 +58,12 @@ mangasRouter.get("/:id", (req, res) => __awaiter(void 0, void 0, void 0, functio
             return;
         }
         try {
-            const manga = yield mangas_controller_1.default.get(id);
-            if (!manga) {
-                res.status(404).send("manga not found");
+            const intersiteManga = yield intersite_mangas_controller_1.default.get(id);
+            if (!intersiteManga) {
+                res.status(404).send("intersiteManga not found");
                 return;
             }
-            res.send(manga);
+            res.send(intersiteManga);
         }
         catch (error) {
             console.error(error);
@@ -101,7 +74,7 @@ mangasRouter.get("/:id", (req, res) => __awaiter(void 0, void 0, void 0, functio
         res.status(400).send("wrong paramters: request params must contains id");
     }
 }));
-mangasRouter.get("/:id/chapters", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+intersiteMangasRouter.get("/:id/intersiteChapters", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const id = routing_utils_1.RoutingUtils.convertQueryParamToString(req.params.id);
         const srcs = routing_utils_1.RoutingUtils.convertQueryParamToArray(req.query.srcs);
@@ -116,7 +89,7 @@ mangasRouter.get("/:id/chapters", (req, res) => __awaiter(void 0, void 0, void 0
             return;
         }
         try {
-            res.send(yield mangas_controller_1.default.getChaptersOf(id, {
+            res.send(yield intersite_mangas_controller_1.default.getIntersiteChaptersOf(id, {
                 srcs: srcs,
                 pageNumber,
                 pageSize,
@@ -131,4 +104,4 @@ mangasRouter.get("/:id/chapters", (req, res) => __awaiter(void 0, void 0, void 0
         res.status(400).send("wrong paramters: request params must contains id");
     }
 }));
-exports.default = mangasRouter;
+exports.default = intersiteMangasRouter;

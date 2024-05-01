@@ -13,44 +13,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const routing_utils_1 = require("./../../../shared/src/utils/routing-utils");
-const config_1 = __importDefault(require("./../config/config"));
+const routing_utils_1 = require("../../../shared/src/utils/routing-utils");
+const config_1 = __importDefault(require("../config/config"));
 const chapters_controller_1 = __importDefault(require("../controllers/chapters.controller"));
-const Chapter_1 = require("../../../shared/src/types/Chapter");
-const router = (0, express_1.Router)();
-router.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    if (!req.body || !req.body.chapter) {
-        res
-            .status(400)
-            .send("miss paramters: request body must contains chapter (ScrapedChapter)");
-        return;
-    }
-    try {
-        const chapter = req.body.chapter;
-        if (!(0, Chapter_1.isScrapedChapter)(chapter)) {
-            res.status(400).send("chapter must be a ScrapedChapter");
-            return;
-        }
-        if (!config_1.default.isValidSrc(chapter.src)) {
-            res.status(400).send("src must be a valid src");
-            return;
-        }
-        try {
-            res.send(yield chapters_controller_1.default.save(chapter));
-        }
-        catch (err) {
-            console.error(err);
-            res.status(500).send(err);
-        }
-    }
-    catch (err) {
-        console.error(err);
-        res
-            .status(400)
-            .send("wrong paramters: request body must contains chapter (ScrapedChapter)");
-    }
-}));
-router.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const latestChaptersRouter = (0, express_1.Router)();
+latestChaptersRouter.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const srcs = routing_utils_1.RoutingUtils.convertQueryParamToArray(req.query.srcs);
         const pageNumber = routing_utils_1.RoutingUtils.convertQueryParamToNumber(req.query.page);
@@ -63,7 +30,7 @@ router.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             return;
         }
         try {
-            res.send(yield chapters_controller_1.default.getAll({
+            res.send(yield chapters_controller_1.default.getLatestChapters({
                 srcs: srcs,
                 pageNumber,
                 pageSize,
@@ -83,30 +50,4 @@ router.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             .send("wrong paramters: request query could contains page, limit and srcs (SourceName[])");
     }
 }));
-router.get("/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const id = routing_utils_1.RoutingUtils.convertQueryParamToString(req.params.id);
-        if (!id) {
-            res.status(400).send("id must be a valid uuid");
-            return;
-        }
-        try {
-            const chapter = yield chapters_controller_1.default.get(id);
-            if (!chapter) {
-                res.status(404).send("chapter not found");
-                return;
-            }
-            res.send(chapter);
-        }
-        catch (error) {
-            console.error(error);
-            res.status(500).send(error);
-        }
-    }
-    catch (error) {
-        res
-            .status(400)
-            .send("wrong paramters: request query could contains page, limit and srcs (SourceName[])");
-    }
-}));
-exports.default = router;
+exports.default = latestChaptersRouter;
