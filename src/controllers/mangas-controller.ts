@@ -1,5 +1,5 @@
-import { IdentifiedChapter } from "../../../shared/src/types/Chapter";
-import { Manga, StoredManga } from "../../../shared/src/types/Manga";
+import { IdentifiedChapter } from "../../../shared/src/types/basics/Chapter";
+import { Manga, StoredManga } from "../../../shared/src/types/basics/Manga";
 import { UUID } from "../../../shared/src/types/primitives/Identifiers";
 import {
   isUUID,
@@ -8,7 +8,6 @@ import {
 } from "../../../shared/src/types/primitives/Identifiers";
 import { ResponsePage } from "../../../shared/src/types/responses/ResponsePage";
 import { TextFormatUtils } from "../../../shared/src/utils/text-format-utils";
-import { DefaultValues } from "../config/default-values";
 import { PrismaClient } from "../config/prisma/generated/client";
 import PrismaConverterService from "../services/PrismaConverter.service";
 import intersiteMangasController from "./intersite-mangas.controller";

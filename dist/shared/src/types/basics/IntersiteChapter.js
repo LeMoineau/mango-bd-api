@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.isIntersiteChapter = exports.isParentlessIntersiteChapter = void 0;
-const MangaNested_1 = require("./attributes/MangaNested");
-const Identifiers_1 = require("./primitives/Identifiers");
+const MangaNested_1 = require("../attributes/MangaNested");
+const Identifiers_1 = require("../primitives/Identifiers");
 /**
  * TYPES FUNCTION
  */

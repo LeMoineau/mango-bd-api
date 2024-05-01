@@ -1,7 +1,7 @@
 import {
   IntersiteChapter,
   IntersiteChapterCore,
-} from "../../../shared/src/types/IntersiteChapter";
+} from "../../../shared/src/types/basics/IntersiteChapter";
 import {
   ChapterFormattedName,
   isUUID,

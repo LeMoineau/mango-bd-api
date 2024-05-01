@@ -1,7 +1,7 @@
 import {
   ScrapedChapter,
   StoredChapter,
-} from "../../../shared/src/types/Chapter";
+} from "../../../shared/src/types/basics/Chapter";
 import {
   isUUID,
   SourceName,

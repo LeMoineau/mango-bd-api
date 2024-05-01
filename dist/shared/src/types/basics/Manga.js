@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.isManga = void 0;
-const Identifiers_1 = require("./primitives/Identifiers");
+const Identifiers_1 = require("../primitives/Identifiers");
 /**
  * TYPES FUNCTION
  */

@@ -4,7 +4,7 @@ import config from "../config/config";
 import mangasController from "../controllers/mangas-controller";
 import { SourceName } from "../../../shared/src/types/primitives/Identifiers";
 import { Manga } from "../config/prisma/generated/client";
-import { isManga } from "../../../shared/src/types/Manga";
+import { isManga } from "../../../shared/src/types/basics/Manga";
 
 const mangasRouter = Router();
 

@@ -1,8 +1,8 @@
-import { ParentlessIntersiteChapter } from "../../../shared/src/types/IntersiteChapter";
+import { ParentlessIntersiteChapter } from "../../../shared/src/types/basics/IntersiteChapter";
 import {
   IntersiteManga,
   IntersiteMangaCore,
-} from "../../../shared/src/types/IntersiteManga";
+} from "../../../shared/src/types/basics/IntersiteManga";
 import { UUID } from "../../../shared/src/types/primitives/Identifiers";
 import {
   isUUID,
@@ -10,7 +10,6 @@ import {
   SourceName,
 } from "../../../shared/src/types/primitives/Identifiers";
 import { ResponsePage } from "../../../shared/src/types/responses/ResponsePage";
-import { DefaultValues } from "../config/default-values";
 import { PrismaClient } from "../config/prisma/generated/client";
 import PrismaConverterService from "../services/PrismaConverter.service";
 import AdditionalPropsService from "../services/AdditionalProps.service";

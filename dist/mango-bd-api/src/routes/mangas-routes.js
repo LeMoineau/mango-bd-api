@@ -16,7 +16,7 @@ const express_1 = require("express");
 const routing_utils_1 = require("../../../shared/src/utils/routing-utils");
 const config_1 = __importDefault(require("../config/config"));
 const mangas_controller_1 = __importDefault(require("../controllers/mangas-controller"));
-const Manga_1 = require("../../../shared/src/types/Manga");
+const Manga_1 = require("../../../shared/src/types/basics/Manga");
 const mangasRouter = (0, express_1.Router)();
 mangasRouter.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {

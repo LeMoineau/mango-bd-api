@@ -6,7 +6,7 @@ import { SourceName } from "../../../shared/src/types/primitives/Identifiers";
 import {
   isScrapedChapter,
   ScrapedChapter,
-} from "../../../shared/src/types/Chapter";
+} from "../../../shared/src/types/basics/Chapter";
 
 const router = Router();
 

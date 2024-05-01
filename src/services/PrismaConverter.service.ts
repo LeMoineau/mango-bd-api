@@ -2,16 +2,16 @@ import { IdentifiedMangaNested } from "../../../shared/src/types/attributes/Mang
 import {
   IdentifiedChapter,
   StoredChapter,
-} from "../../../shared/src/types/Chapter";
+} from "../../../shared/src/types/basics/Chapter";
 import {
   IntersiteChapter,
   ParentlessIntersiteChapter,
-} from "../../../shared/src/types/IntersiteChapter";
-import { IntersiteManga } from "../../../shared/src/types/IntersiteManga";
+} from "../../../shared/src/types/basics/IntersiteChapter";
+import { IntersiteManga } from "../../../shared/src/types/basics/IntersiteManga";
 import {
   IdentifiedMangaCore,
   StoredManga,
-} from "../../../shared/src/types/Manga";
+} from "../../../shared/src/types/basics/Manga";
 import {
   IntersiteChapter as PrismaIntersiteChapter,
   IntersiteManga as PrismaIntersiteManga,
