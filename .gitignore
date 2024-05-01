@@ -128,6 +128,6 @@ out
 .pnp.*
 
 # Prisma files
-generated/
+src/**/generated/
 migrations/
 .env.*
