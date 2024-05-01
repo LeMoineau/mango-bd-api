@@ -202,6 +202,10 @@ const config = {
         "fromEnvVar": null,
         "value": "windows",
         "native": true
+      },
+      {
+        "fromEnvVar": null,
+        "value": "rhel-openssl-3.0.x"
       }
     ],
     "previewFeatures": [
@@ -220,6 +224,7 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
@@ -228,8 +233,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\r\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\r\n\r\ngenerator client {\r\n  provider        = \"prisma-client-js\"\r\n  output          = \"./generated/client\"\r\n  previewFeatures = [\"fullTextSearch\"]\r\n}\r\n\r\ndatasource db {\r\n  provider = \"postgresql\"\r\n  url      = env(\"POSTGRES_URL\") // uses connection pooling\r\n  // directUrl = env(\"POSTGRES_URL_NON_POOLING\") // uses a direct connection\r\n}\r\n\r\nenum Source {\r\n  mangaplus\r\n  mangasaki\r\n}\r\n\r\nmodel Chapter {\r\n  id                 String            @id @default(uuid())\r\n  src                Source\r\n  endpoint           String\r\n  url                String\r\n  title              String\r\n  number             String\r\n  image              String?\r\n  releaseDate        DateTime?\r\n  manga              Manga?            @relation(fields: [mangaId], references: [id])\r\n  mangaId            String\r\n  intersiteChapter   IntersiteChapter? @relation(fields: [intersiteChapterId], references: [id])\r\n  intersiteChapterId String?\r\n}\r\n\r\nmodel Manga {\r\n  id               String          @id @default(uuid())\r\n  src              Source\r\n  endpoint         String          @unique //id on the website\r\n  url              String\r\n  title            String\r\n  author           String?\r\n  image            String?\r\n  chapters         Chapter[]\r\n  intersiteManga   IntersiteManga? @relation(fields: [intersiteMangaId], references: [id])\r\n  intersiteMangaId String?\r\n}\r\n\r\nmodel IntersiteChapter {\r\n  id               String          @id @default(uuid())\r\n  formattedName    String          @unique\r\n  intersiteManga   IntersiteManga? @relation(fields: [intersiteMangaId], references: [id])\r\n  intersiteMangaId String\r\n  chapters         Chapter[]\r\n}\r\n\r\nmodel IntersiteManga {\r\n  id               String             @id @default(uuid())\r\n  formattedName    String             @unique\r\n  mangas           Manga[]\r\n  intersiteChapter IntersiteChapter[]\r\n}\r\n\r\n// model User {\r\n//   id    String  @id @default(uuid())\r\n//   email String  @unique\r\n//   name  String?\r\n//   posts Post[]\r\n// }\r\n\r\n// model Post {\r\n//   id        String   @id @default(uuid())\r\n//   createdAt DateTime @default(now())\r\n//   updatedAt DateTime @updatedAt\r\n//   title     String\r\n//   content   String?\r\n//   published Boolean  @default(false)\r\n//   viewCount Int      @default(0)\r\n//   author    User?    @relation(fields: [authorId], references: [id])\r\n//   authorId  String?\r\n// }\r\n",
-  "inlineSchemaHash": "b6d4e076ea79b09eb70f4ff57d634104f846ccf2d707145d9dd7fac1a52b9a02",
+  "inlineSchema": "// This is your Prisma schema file,\r\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\r\n\r\ngenerator client {\r\n  provider        = \"prisma-client-js\"\r\n  output          = \"./generated/client\"\r\n  previewFeatures = [\"fullTextSearch\"]\r\n  binaryTargets   = [\"native\", \"rhel-openssl-3.0.x\"]\r\n}\r\n\r\ndatasource db {\r\n  provider = \"postgresql\"\r\n  url      = env(\"POSTGRES_URL\") // uses connection pooling\r\n  // directUrl = env(\"POSTGRES_URL_NON_POOLING\") // uses a direct connection\r\n}\r\n\r\nenum Source {\r\n  mangaplus\r\n  mangasaki\r\n}\r\n\r\nmodel Chapter {\r\n  id                 String            @id @default(uuid())\r\n  src                Source\r\n  endpoint           String\r\n  url                String\r\n  title              String\r\n  number             String\r\n  image              String?\r\n  releaseDate        DateTime?\r\n  manga              Manga?            @relation(fields: [mangaId], references: [id])\r\n  mangaId            String\r\n  intersiteChapter   IntersiteChapter? @relation(fields: [intersiteChapterId], references: [id])\r\n  intersiteChapterId String?\r\n}\r\n\r\nmodel Manga {\r\n  id               String          @id @default(uuid())\r\n  src              Source\r\n  endpoint         String          @unique //id on the website\r\n  url              String\r\n  title            String\r\n  author           String?\r\n  image            String?\r\n  chapters         Chapter[]\r\n  intersiteManga   IntersiteManga? @relation(fields: [intersiteMangaId], references: [id])\r\n  intersiteMangaId String?\r\n}\r\n\r\nmodel IntersiteChapter {\r\n  id               String          @id @default(uuid())\r\n  formattedName    String          @unique\r\n  intersiteManga   IntersiteManga? @relation(fields: [intersiteMangaId], references: [id])\r\n  intersiteMangaId String\r\n  chapters         Chapter[]\r\n}\r\n\r\nmodel IntersiteManga {\r\n  id               String             @id @default(uuid())\r\n  formattedName    String             @unique\r\n  mangas           Manga[]\r\n  intersiteChapter IntersiteChapter[]\r\n}\r\n\r\n// model User {\r\n//   id    String  @id @default(uuid())\r\n//   email String  @unique\r\n//   name  String?\r\n//   posts Post[]\r\n// }\r\n\r\n// model Post {\r\n//   id        String   @id @default(uuid())\r\n//   createdAt DateTime @default(now())\r\n//   updatedAt DateTime @updatedAt\r\n//   title     String\r\n//   content   String?\r\n//   published Boolean  @default(false)\r\n//   viewCount Int      @default(0)\r\n//   author    User?    @relation(fields: [authorId], references: [id])\r\n//   authorId  String?\r\n// }\r\n",
+  "inlineSchemaHash": "9e9bf0542cce5871d81423979a566fa539f27c9f1a8243ff4d9d6ecbef9f64ff",
   "copyEngine": true
 }
 
@@ -269,6 +274,10 @@ Object.assign(exports, Prisma)
 // file annotations for bundling tools to include these files
 path.join(__dirname, "query_engine-windows.dll.node");
 path.join(process.cwd(), "src/config/prisma/generated/client/query_engine-windows.dll.node")
+
+// file annotations for bundling tools to include these files
+path.join(__dirname, "libquery_engine-rhel-openssl-3.0.x.so.node");
+path.join(process.cwd(), "src/config/prisma/generated/client/libquery_engine-rhel-openssl-3.0.x.so.node")
 // file annotations for bundling tools to include these files
 path.join(__dirname, "schema.prisma");
 path.join(process.cwd(), "src/config/prisma/generated/client/schema.prisma")
