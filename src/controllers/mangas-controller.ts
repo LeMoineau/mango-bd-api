@@ -113,14 +113,14 @@ class MangasController {
   ): Promise<ResponsePage<IdentifiedChapter>> {
     const { pageSize, pageNumber, take, skip } =
       AdditionalPropsService.page(props);
-    const mangas = await this.prisma.chapter.findMany({
+    const chapters = await this.prisma.chapter.findMany({
       skip,
       take,
       where: { src: { in: props.srcs }, manga: { id } },
-      orderBy: { releaseDate: "desc" },
+      orderBy: { number: "desc" },
     });
     return {
-      elements: mangas.map((m) =>
+      elements: chapters.map((m) =>
         PrismaConverterService.PrismaChapterToIdentifiedChapter(m)
       ),
       pageNumber,
