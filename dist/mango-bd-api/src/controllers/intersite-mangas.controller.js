@@ -30,7 +30,7 @@ class IntersiteMangasController {
                 where: {
                     formattedName: props.formattedName,
                     mangas: {
-                        every: {
+                        some: {
                             src: {
                                 in: props.srcs,
                             },
@@ -48,6 +48,18 @@ class IntersiteMangasController {
                 },
                 include: {
                     mangas: {
+                        where: {
+                            src: { in: props.srcs },
+                            title: {
+                                contains: mangaTitle,
+                                mode: "insensitive",
+                            },
+                            author: {
+                                contains: mangaAuthor,
+                                mode: "insensitive",
+                                not: mangaAuthor && null,
+                            },
+                        },
                         select: {
                             id: true,
                             src: true,

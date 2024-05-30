@@ -99,14 +99,14 @@ class MangasController {
     getChaptersOf(id, props) {
         return __awaiter(this, void 0, void 0, function* () {
             const { pageSize, pageNumber, take, skip } = AdditionalProps_service_1.default.page(props);
-            const mangas = yield this.prisma.chapter.findMany({
+            const chapters = yield this.prisma.chapter.findMany({
                 skip,
                 take,
                 where: { src: { in: props.srcs }, manga: { id } },
-                orderBy: { releaseDate: "desc" },
+                orderBy: { number: "desc" },
             });
             return {
-                elements: mangas.map((m) => PrismaConverter_service_1.default.PrismaChapterToIdentifiedChapter(m)),
+                elements: chapters.map((m) => PrismaConverter_service_1.default.PrismaChapterToIdentifiedChapter(m)),
                 pageNumber,
                 pageSize,
             };
