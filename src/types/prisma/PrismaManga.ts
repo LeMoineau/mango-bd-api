@@ -1,9 +1,7 @@
-import { Source } from "../../config/prisma/generated/client";
-
 export interface PrismaManga {
   id: string;
   endpoint: string;
-  src: Source;
+  src: string;
   url: string;
   title: string;
   image: string | null;

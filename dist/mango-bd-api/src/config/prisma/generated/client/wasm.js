@@ -171,6 +171,7 @@ exports.Prisma.NullsOrder = {
 
 exports.Prisma.ChapterOrderByRelevanceFieldEnum = {
   id: 'id',
+  src: 'src',
   endpoint: 'endpoint',
   url: 'url',
   title: 'title',
@@ -182,6 +183,7 @@ exports.Prisma.ChapterOrderByRelevanceFieldEnum = {
 
 exports.Prisma.MangaOrderByRelevanceFieldEnum = {
   id: 'id',
+  src: 'src',
   endpoint: 'endpoint',
   url: 'url',
   title: 'title',
@@ -200,10 +202,7 @@ exports.Prisma.IntersiteMangaOrderByRelevanceFieldEnum = {
   id: 'id',
   formattedName: 'formattedName'
 };
-exports.Source = exports.$Enums.Source = {
-  mangaplus: 'mangaplus',
-  mangasaki: 'mangasaki'
-};
+
 
 exports.Prisma.ModelName = {
   Chapter: 'Chapter',

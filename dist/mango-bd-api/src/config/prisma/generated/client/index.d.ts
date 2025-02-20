@@ -35,23 +35,6 @@ export type IntersiteChapter = $Result.DefaultSelection<Prisma.$IntersiteChapter
 export type IntersiteManga = $Result.DefaultSelection<Prisma.$IntersiteMangaPayload>
 
 /**
- * Enums
- */
-export namespace $Enums {
-  export const Source: {
-  mangaplus: 'mangaplus',
-  mangasaki: 'mangasaki'
-};
-
-export type Source = (typeof Source)[keyof typeof Source]
-
-}
-
-export type Source = $Enums.Source
-
-export const Source: typeof $Enums.Source
-
-/**
  * ##  Prisma Client ʲˢ
  * 
  * Type-safe database client for TypeScript & Node.js
@@ -1252,7 +1235,7 @@ export namespace Prisma {
 
   export type ChapterMinAggregateOutputType = {
     id: string | null
-    src: $Enums.Source | null
+    src: string | null
     endpoint: string | null
     url: string | null
     title: string | null
@@ -1265,7 +1248,7 @@ export namespace Prisma {
 
   export type ChapterMaxAggregateOutputType = {
     id: string | null
-    src: $Enums.Source | null
+    src: string | null
     endpoint: string | null
     url: string | null
     title: string | null
@@ -1405,7 +1388,7 @@ export namespace Prisma {
 
   export type ChapterGroupByOutputType = {
     id: string
-    src: $Enums.Source
+    src: string
     endpoint: string
     url: string
     title: string
@@ -1475,7 +1458,7 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      src: $Enums.Source
+      src: string
       endpoint: string
       url: string
       title: string
@@ -1882,7 +1865,7 @@ export namespace Prisma {
    */ 
   interface ChapterFieldRefs {
     readonly id: FieldRef<"Chapter", 'String'>
-    readonly src: FieldRef<"Chapter", 'Source'>
+    readonly src: FieldRef<"Chapter", 'String'>
     readonly endpoint: FieldRef<"Chapter", 'String'>
     readonly url: FieldRef<"Chapter", 'String'>
     readonly title: FieldRef<"Chapter", 'String'>
@@ -2262,7 +2245,7 @@ export namespace Prisma {
 
   export type MangaMinAggregateOutputType = {
     id: string | null
-    src: $Enums.Source | null
+    src: string | null
     endpoint: string | null
     url: string | null
     title: string | null
@@ -2273,7 +2256,7 @@ export namespace Prisma {
 
   export type MangaMaxAggregateOutputType = {
     id: string | null
-    src: $Enums.Source | null
+    src: string | null
     endpoint: string | null
     url: string | null
     title: string | null
@@ -2403,7 +2386,7 @@ export namespace Prisma {
 
   export type MangaGroupByOutputType = {
     id: string
-    src: $Enums.Source
+    src: string
     endpoint: string
     url: string
     title: string
@@ -2469,7 +2452,7 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      src: $Enums.Source
+      src: string
       endpoint: string
       url: string
       title: string
@@ -2874,7 +2857,7 @@ export namespace Prisma {
    */ 
   interface MangaFieldRefs {
     readonly id: FieldRef<"Manga", 'String'>
-    readonly src: FieldRef<"Manga", 'Source'>
+    readonly src: FieldRef<"Manga", 'String'>
     readonly endpoint: FieldRef<"Manga", 'String'>
     readonly url: FieldRef<"Manga", 'String'>
     readonly title: FieldRef<"Manga", 'String'>
@@ -5206,6 +5189,7 @@ export namespace Prisma {
 
   export const ChapterOrderByRelevanceFieldEnum: {
     id: 'id',
+    src: 'src',
     endpoint: 'endpoint',
     url: 'url',
     title: 'title',
@@ -5220,6 +5204,7 @@ export namespace Prisma {
 
   export const MangaOrderByRelevanceFieldEnum: {
     id: 'id',
+    src: 'src',
     endpoint: 'endpoint',
     url: 'url',
     title: 'title',
@@ -5268,20 +5253,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Source'
-   */
-  export type EnumSourceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Source'>
-    
-
-
-  /**
-   * Reference to a field of type 'Source[]'
-   */
-  export type ListEnumSourceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Source[]'>
-    
-
-
-  /**
    * Reference to a field of type 'DateTime'
    */
   export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -5317,7 +5288,7 @@ export namespace Prisma {
     OR?: ChapterWhereInput[]
     NOT?: ChapterWhereInput | ChapterWhereInput[]
     id?: StringFilter<"Chapter"> | string
-    src?: EnumSourceFilter<"Chapter"> | $Enums.Source
+    src?: StringFilter<"Chapter"> | string
     endpoint?: StringFilter<"Chapter"> | string
     url?: StringFilter<"Chapter"> | string
     title?: StringFilter<"Chapter"> | string
@@ -5351,7 +5322,7 @@ export namespace Prisma {
     AND?: ChapterWhereInput | ChapterWhereInput[]
     OR?: ChapterWhereInput[]
     NOT?: ChapterWhereInput | ChapterWhereInput[]
-    src?: EnumSourceFilter<"Chapter"> | $Enums.Source
+    src?: StringFilter<"Chapter"> | string
     endpoint?: StringFilter<"Chapter"> | string
     url?: StringFilter<"Chapter"> | string
     title?: StringFilter<"Chapter"> | string
@@ -5385,7 +5356,7 @@ export namespace Prisma {
     OR?: ChapterScalarWhereWithAggregatesInput[]
     NOT?: ChapterScalarWhereWithAggregatesInput | ChapterScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Chapter"> | string
-    src?: EnumSourceWithAggregatesFilter<"Chapter"> | $Enums.Source
+    src?: StringWithAggregatesFilter<"Chapter"> | string
     endpoint?: StringWithAggregatesFilter<"Chapter"> | string
     url?: StringWithAggregatesFilter<"Chapter"> | string
     title?: StringWithAggregatesFilter<"Chapter"> | string
@@ -5401,7 +5372,7 @@ export namespace Prisma {
     OR?: MangaWhereInput[]
     NOT?: MangaWhereInput | MangaWhereInput[]
     id?: StringFilter<"Manga"> | string
-    src?: EnumSourceFilter<"Manga"> | $Enums.Source
+    src?: StringFilter<"Manga"> | string
     endpoint?: StringFilter<"Manga"> | string
     url?: StringFilter<"Manga"> | string
     title?: StringFilter<"Manga"> | string
@@ -5432,7 +5403,7 @@ export namespace Prisma {
     AND?: MangaWhereInput | MangaWhereInput[]
     OR?: MangaWhereInput[]
     NOT?: MangaWhereInput | MangaWhereInput[]
-    src?: EnumSourceFilter<"Manga"> | $Enums.Source
+    src?: StringFilter<"Manga"> | string
     url?: StringFilter<"Manga"> | string
     title?: StringFilter<"Manga"> | string
     author?: StringNullableFilter<"Manga"> | string | null
@@ -5461,7 +5432,7 @@ export namespace Prisma {
     OR?: MangaScalarWhereWithAggregatesInput[]
     NOT?: MangaScalarWhereWithAggregatesInput | MangaScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Manga"> | string
-    src?: EnumSourceWithAggregatesFilter<"Manga"> | $Enums.Source
+    src?: StringWithAggregatesFilter<"Manga"> | string
     endpoint?: StringWithAggregatesFilter<"Manga"> | string
     url?: StringWithAggregatesFilter<"Manga"> | string
     title?: StringWithAggregatesFilter<"Manga"> | string
@@ -5565,7 +5536,7 @@ export namespace Prisma {
 
   export type ChapterCreateInput = {
     id?: string
-    src: $Enums.Source
+    src: string
     endpoint: string
     url: string
     title: string
@@ -5578,7 +5549,7 @@ export namespace Prisma {
 
   export type ChapterUncheckedCreateInput = {
     id?: string
-    src: $Enums.Source
+    src: string
     endpoint: string
     url: string
     title: string
@@ -5591,7 +5562,7 @@ export namespace Prisma {
 
   export type ChapterUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    src?: EnumSourceFieldUpdateOperationsInput | $Enums.Source
+    src?: StringFieldUpdateOperationsInput | string
     endpoint?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
@@ -5604,7 +5575,7 @@ export namespace Prisma {
 
   export type ChapterUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    src?: EnumSourceFieldUpdateOperationsInput | $Enums.Source
+    src?: StringFieldUpdateOperationsInput | string
     endpoint?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
@@ -5617,7 +5588,7 @@ export namespace Prisma {
 
   export type ChapterCreateManyInput = {
     id?: string
-    src: $Enums.Source
+    src: string
     endpoint: string
     url: string
     title: string
@@ -5630,7 +5601,7 @@ export namespace Prisma {
 
   export type ChapterUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    src?: EnumSourceFieldUpdateOperationsInput | $Enums.Source
+    src?: StringFieldUpdateOperationsInput | string
     endpoint?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
@@ -5641,7 +5612,7 @@ export namespace Prisma {
 
   export type ChapterUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    src?: EnumSourceFieldUpdateOperationsInput | $Enums.Source
+    src?: StringFieldUpdateOperationsInput | string
     endpoint?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
@@ -5654,7 +5625,7 @@ export namespace Prisma {
 
   export type MangaCreateInput = {
     id?: string
-    src: $Enums.Source
+    src: string
     endpoint: string
     url: string
     title: string
@@ -5666,7 +5637,7 @@ export namespace Prisma {
 
   export type MangaUncheckedCreateInput = {
     id?: string
-    src: $Enums.Source
+    src: string
     endpoint: string
     url: string
     title: string
@@ -5678,7 +5649,7 @@ export namespace Prisma {
 
   export type MangaUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    src?: EnumSourceFieldUpdateOperationsInput | $Enums.Source
+    src?: StringFieldUpdateOperationsInput | string
     endpoint?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
@@ -5690,7 +5661,7 @@ export namespace Prisma {
 
   export type MangaUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    src?: EnumSourceFieldUpdateOperationsInput | $Enums.Source
+    src?: StringFieldUpdateOperationsInput | string
     endpoint?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
@@ -5702,7 +5673,7 @@ export namespace Prisma {
 
   export type MangaCreateManyInput = {
     id?: string
-    src: $Enums.Source
+    src: string
     endpoint: string
     url: string
     title: string
@@ -5713,7 +5684,7 @@ export namespace Prisma {
 
   export type MangaUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    src?: EnumSourceFieldUpdateOperationsInput | $Enums.Source
+    src?: StringFieldUpdateOperationsInput | string
     endpoint?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
@@ -5723,7 +5694,7 @@ export namespace Prisma {
 
   export type MangaUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    src?: EnumSourceFieldUpdateOperationsInput | $Enums.Source
+    src?: StringFieldUpdateOperationsInput | string
     endpoint?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
@@ -5836,13 +5807,6 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type EnumSourceFilter<$PrismaModel = never> = {
-    equals?: $Enums.Source | EnumSourceFieldRefInput<$PrismaModel>
-    in?: $Enums.Source[] | ListEnumSourceFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Source[] | ListEnumSourceFieldRefInput<$PrismaModel>
-    not?: NestedEnumSourceFilter<$PrismaModel> | $Enums.Source
-  }
-
   export type StringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -5947,16 +5911,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedStringFilter<$PrismaModel>
     _max?: NestedStringFilter<$PrismaModel>
-  }
-
-  export type EnumSourceWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.Source | EnumSourceFieldRefInput<$PrismaModel>
-    in?: $Enums.Source[] | ListEnumSourceFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Source[] | ListEnumSourceFieldRefInput<$PrismaModel>
-    not?: NestedEnumSourceWithAggregatesFilter<$PrismaModel> | $Enums.Source
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumSourceFilter<$PrismaModel>
-    _max?: NestedEnumSourceFilter<$PrismaModel>
   }
 
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -6125,10 +6079,6 @@ export namespace Prisma {
 
   export type StringFieldUpdateOperationsInput = {
     set?: string
-  }
-
-  export type EnumSourceFieldUpdateOperationsInput = {
-    set?: $Enums.Source
   }
 
   export type NullableStringFieldUpdateOperationsInput = {
@@ -6374,13 +6324,6 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type NestedEnumSourceFilter<$PrismaModel = never> = {
-    equals?: $Enums.Source | EnumSourceFieldRefInput<$PrismaModel>
-    in?: $Enums.Source[] | ListEnumSourceFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Source[] | ListEnumSourceFieldRefInput<$PrismaModel>
-    not?: NestedEnumSourceFilter<$PrismaModel> | $Enums.Source
-  }
-
   export type NestedStringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -6436,16 +6379,6 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
-  export type NestedEnumSourceWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.Source | EnumSourceFieldRefInput<$PrismaModel>
-    in?: $Enums.Source[] | ListEnumSourceFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Source[] | ListEnumSourceFieldRefInput<$PrismaModel>
-    not?: NestedEnumSourceWithAggregatesFilter<$PrismaModel> | $Enums.Source
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumSourceFilter<$PrismaModel>
-    _max?: NestedEnumSourceFilter<$PrismaModel>
-  }
-
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -6491,7 +6424,7 @@ export namespace Prisma {
 
   export type MangaCreateWithoutChaptersInput = {
     id?: string
-    src: $Enums.Source
+    src: string
     endpoint: string
     url: string
     title: string
@@ -6502,7 +6435,7 @@ export namespace Prisma {
 
   export type MangaUncheckedCreateWithoutChaptersInput = {
     id?: string
-    src: $Enums.Source
+    src: string
     endpoint: string
     url: string
     title: string
@@ -6546,7 +6479,7 @@ export namespace Prisma {
 
   export type MangaUpdateWithoutChaptersInput = {
     id?: StringFieldUpdateOperationsInput | string
-    src?: EnumSourceFieldUpdateOperationsInput | $Enums.Source
+    src?: StringFieldUpdateOperationsInput | string
     endpoint?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
@@ -6557,7 +6490,7 @@ export namespace Prisma {
 
   export type MangaUncheckedUpdateWithoutChaptersInput = {
     id?: StringFieldUpdateOperationsInput | string
-    src?: EnumSourceFieldUpdateOperationsInput | $Enums.Source
+    src?: StringFieldUpdateOperationsInput | string
     endpoint?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
@@ -6591,7 +6524,7 @@ export namespace Prisma {
 
   export type ChapterCreateWithoutMangaInput = {
     id?: string
-    src: $Enums.Source
+    src: string
     endpoint: string
     url: string
     title: string
@@ -6603,7 +6536,7 @@ export namespace Prisma {
 
   export type ChapterUncheckedCreateWithoutMangaInput = {
     id?: string
-    src: $Enums.Source
+    src: string
     endpoint: string
     url: string
     title: string
@@ -6661,7 +6594,7 @@ export namespace Prisma {
     OR?: ChapterScalarWhereInput[]
     NOT?: ChapterScalarWhereInput | ChapterScalarWhereInput[]
     id?: StringFilter<"Chapter"> | string
-    src?: EnumSourceFilter<"Chapter"> | $Enums.Source
+    src?: StringFilter<"Chapter"> | string
     endpoint?: StringFilter<"Chapter"> | string
     url?: StringFilter<"Chapter"> | string
     title?: StringFilter<"Chapter"> | string
@@ -6714,7 +6647,7 @@ export namespace Prisma {
 
   export type ChapterCreateWithoutIntersiteChapterInput = {
     id?: string
-    src: $Enums.Source
+    src: string
     endpoint: string
     url: string
     title: string
@@ -6726,7 +6659,7 @@ export namespace Prisma {
 
   export type ChapterUncheckedCreateWithoutIntersiteChapterInput = {
     id?: string
-    src: $Enums.Source
+    src: string
     endpoint: string
     url: string
     title: string
@@ -6787,7 +6720,7 @@ export namespace Prisma {
 
   export type MangaCreateWithoutIntersiteMangaInput = {
     id?: string
-    src: $Enums.Source
+    src: string
     endpoint: string
     url: string
     title: string
@@ -6798,7 +6731,7 @@ export namespace Prisma {
 
   export type MangaUncheckedCreateWithoutIntersiteMangaInput = {
     id?: string
-    src: $Enums.Source
+    src: string
     endpoint: string
     url: string
     title: string
@@ -6860,7 +6793,7 @@ export namespace Prisma {
     OR?: MangaScalarWhereInput[]
     NOT?: MangaScalarWhereInput | MangaScalarWhereInput[]
     id?: StringFilter<"Manga"> | string
-    src?: EnumSourceFilter<"Manga"> | $Enums.Source
+    src?: StringFilter<"Manga"> | string
     endpoint?: StringFilter<"Manga"> | string
     url?: StringFilter<"Manga"> | string
     title?: StringFilter<"Manga"> | string
@@ -6896,7 +6829,7 @@ export namespace Prisma {
 
   export type ChapterCreateManyMangaInput = {
     id?: string
-    src: $Enums.Source
+    src: string
     endpoint: string
     url: string
     title: string
@@ -6908,7 +6841,7 @@ export namespace Prisma {
 
   export type ChapterUpdateWithoutMangaInput = {
     id?: StringFieldUpdateOperationsInput | string
-    src?: EnumSourceFieldUpdateOperationsInput | $Enums.Source
+    src?: StringFieldUpdateOperationsInput | string
     endpoint?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
@@ -6920,7 +6853,7 @@ export namespace Prisma {
 
   export type ChapterUncheckedUpdateWithoutMangaInput = {
     id?: StringFieldUpdateOperationsInput | string
-    src?: EnumSourceFieldUpdateOperationsInput | $Enums.Source
+    src?: StringFieldUpdateOperationsInput | string
     endpoint?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
@@ -6932,7 +6865,7 @@ export namespace Prisma {
 
   export type ChapterUncheckedUpdateManyWithoutMangaInput = {
     id?: StringFieldUpdateOperationsInput | string
-    src?: EnumSourceFieldUpdateOperationsInput | $Enums.Source
+    src?: StringFieldUpdateOperationsInput | string
     endpoint?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
@@ -6944,7 +6877,7 @@ export namespace Prisma {
 
   export type ChapterCreateManyIntersiteChapterInput = {
     id?: string
-    src: $Enums.Source
+    src: string
     endpoint: string
     url: string
     title: string
@@ -6956,7 +6889,7 @@ export namespace Prisma {
 
   export type ChapterUpdateWithoutIntersiteChapterInput = {
     id?: StringFieldUpdateOperationsInput | string
-    src?: EnumSourceFieldUpdateOperationsInput | $Enums.Source
+    src?: StringFieldUpdateOperationsInput | string
     endpoint?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
@@ -6968,7 +6901,7 @@ export namespace Prisma {
 
   export type ChapterUncheckedUpdateWithoutIntersiteChapterInput = {
     id?: StringFieldUpdateOperationsInput | string
-    src?: EnumSourceFieldUpdateOperationsInput | $Enums.Source
+    src?: StringFieldUpdateOperationsInput | string
     endpoint?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
@@ -6980,7 +6913,7 @@ export namespace Prisma {
 
   export type ChapterUncheckedUpdateManyWithoutIntersiteChapterInput = {
     id?: StringFieldUpdateOperationsInput | string
-    src?: EnumSourceFieldUpdateOperationsInput | $Enums.Source
+    src?: StringFieldUpdateOperationsInput | string
     endpoint?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
@@ -6992,7 +6925,7 @@ export namespace Prisma {
 
   export type MangaCreateManyIntersiteMangaInput = {
     id?: string
-    src: $Enums.Source
+    src: string
     endpoint: string
     url: string
     title: string
@@ -7007,7 +6940,7 @@ export namespace Prisma {
 
   export type MangaUpdateWithoutIntersiteMangaInput = {
     id?: StringFieldUpdateOperationsInput | string
-    src?: EnumSourceFieldUpdateOperationsInput | $Enums.Source
+    src?: StringFieldUpdateOperationsInput | string
     endpoint?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
@@ -7018,7 +6951,7 @@ export namespace Prisma {
 
   export type MangaUncheckedUpdateWithoutIntersiteMangaInput = {
     id?: StringFieldUpdateOperationsInput | string
-    src?: EnumSourceFieldUpdateOperationsInput | $Enums.Source
+    src?: StringFieldUpdateOperationsInput | string
     endpoint?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
@@ -7029,7 +6962,7 @@ export namespace Prisma {
 
   export type MangaUncheckedUpdateManyWithoutIntersiteMangaInput = {
     id?: StringFieldUpdateOperationsInput | string
-    src?: EnumSourceFieldUpdateOperationsInput | $Enums.Source
+    src?: StringFieldUpdateOperationsInput | string
     endpoint?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string

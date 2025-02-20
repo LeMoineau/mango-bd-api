@@ -14,14 +14,9 @@ datasource db {
   // directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
-enum Source {
-  mangaplus
-  mangasaki
-}
-
 model Chapter {
   id                 String            @id @default(uuid())
-  src                Source
+  src                String
   endpoint           String
   url                String
   title              String
@@ -36,7 +31,7 @@ model Chapter {
 
 model Manga {
   id               String          @id @default(uuid())
-  src              Source
+  src              String
   endpoint         String          @unique //id on the website
   url              String
   title            String

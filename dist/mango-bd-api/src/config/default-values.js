@@ -7,7 +7,11 @@ var DefaultValues;
     DefaultValues.LONG_CACHE_LIFETIME = 4 * 60 * 60 * 1000; //4h
     DefaultValues.FORMATTED_NAME_REGEX = new RegExp(`[^a-zA-Z0-9\ ]+`, "g");
     DefaultValues.DIG_IN_NAME_MIN_LENGTH = 3;
-    DefaultValues.SOURCE_NAMES = ["mangaplus", "mangasaki"];
+    DefaultValues.SOURCE_NAMES = [
+        "mangaplus",
+        "mangasaki",
+        "sailmg",
+    ];
     // RESPONSE PAGE
     DefaultValues.PAGE_SIZE = 20;
     DefaultValues.MAX_PAGE_SIZE = 50;
