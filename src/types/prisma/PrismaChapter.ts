@@ -7,6 +7,7 @@ export interface PrismaChapter extends Identified {
   url: string;
   number: string;
   title: string;
+  lang: string | null;
   image: string | null;
   releaseDate: Date | null;
 }

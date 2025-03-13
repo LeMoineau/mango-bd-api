@@ -1240,6 +1240,7 @@ export namespace Prisma {
     url: string | null
     title: string | null
     number: string | null
+    lang: string | null
     image: string | null
     releaseDate: Date | null
     mangaId: string | null
@@ -1253,6 +1254,7 @@ export namespace Prisma {
     url: string | null
     title: string | null
     number: string | null
+    lang: string | null
     image: string | null
     releaseDate: Date | null
     mangaId: string | null
@@ -1266,6 +1268,7 @@ export namespace Prisma {
     url: number
     title: number
     number: number
+    lang: number
     image: number
     releaseDate: number
     mangaId: number
@@ -1281,6 +1284,7 @@ export namespace Prisma {
     url?: true
     title?: true
     number?: true
+    lang?: true
     image?: true
     releaseDate?: true
     mangaId?: true
@@ -1294,6 +1298,7 @@ export namespace Prisma {
     url?: true
     title?: true
     number?: true
+    lang?: true
     image?: true
     releaseDate?: true
     mangaId?: true
@@ -1307,6 +1312,7 @@ export namespace Prisma {
     url?: true
     title?: true
     number?: true
+    lang?: true
     image?: true
     releaseDate?: true
     mangaId?: true
@@ -1393,6 +1399,7 @@ export namespace Prisma {
     url: string
     title: string
     number: string
+    lang: string | null
     image: string | null
     releaseDate: Date | null
     mangaId: string
@@ -1423,6 +1430,7 @@ export namespace Prisma {
     url?: boolean
     title?: boolean
     number?: boolean
+    lang?: boolean
     image?: boolean
     releaseDate?: boolean
     mangaId?: boolean
@@ -1438,6 +1446,7 @@ export namespace Prisma {
     url?: boolean
     title?: boolean
     number?: boolean
+    lang?: boolean
     image?: boolean
     releaseDate?: boolean
     mangaId?: boolean
@@ -1463,6 +1472,7 @@ export namespace Prisma {
       url: string
       title: string
       number: string
+      lang: string | null
       image: string | null
       releaseDate: Date | null
       mangaId: string
@@ -1870,6 +1880,7 @@ export namespace Prisma {
     readonly url: FieldRef<"Chapter", 'String'>
     readonly title: FieldRef<"Chapter", 'String'>
     readonly number: FieldRef<"Chapter", 'String'>
+    readonly lang: FieldRef<"Chapter", 'String'>
     readonly image: FieldRef<"Chapter", 'String'>
     readonly releaseDate: FieldRef<"Chapter", 'DateTime'>
     readonly mangaId: FieldRef<"Chapter", 'String'>
@@ -2249,6 +2260,7 @@ export namespace Prisma {
     endpoint: string | null
     url: string | null
     title: string | null
+    lang: string | null
     author: string | null
     image: string | null
     intersiteMangaId: string | null
@@ -2260,6 +2272,7 @@ export namespace Prisma {
     endpoint: string | null
     url: string | null
     title: string | null
+    lang: string | null
     author: string | null
     image: string | null
     intersiteMangaId: string | null
@@ -2271,6 +2284,7 @@ export namespace Prisma {
     endpoint: number
     url: number
     title: number
+    lang: number
     author: number
     image: number
     intersiteMangaId: number
@@ -2284,6 +2298,7 @@ export namespace Prisma {
     endpoint?: true
     url?: true
     title?: true
+    lang?: true
     author?: true
     image?: true
     intersiteMangaId?: true
@@ -2295,6 +2310,7 @@ export namespace Prisma {
     endpoint?: true
     url?: true
     title?: true
+    lang?: true
     author?: true
     image?: true
     intersiteMangaId?: true
@@ -2306,6 +2322,7 @@ export namespace Prisma {
     endpoint?: true
     url?: true
     title?: true
+    lang?: true
     author?: true
     image?: true
     intersiteMangaId?: true
@@ -2390,6 +2407,7 @@ export namespace Prisma {
     endpoint: string
     url: string
     title: string
+    lang: string | null
     author: string | null
     image: string | null
     intersiteMangaId: string | null
@@ -2418,6 +2436,7 @@ export namespace Prisma {
     endpoint?: boolean
     url?: boolean
     title?: boolean
+    lang?: boolean
     author?: boolean
     image?: boolean
     intersiteMangaId?: boolean
@@ -2432,6 +2451,7 @@ export namespace Prisma {
     endpoint?: boolean
     url?: boolean
     title?: boolean
+    lang?: boolean
     author?: boolean
     image?: boolean
     intersiteMangaId?: boolean
@@ -2456,6 +2476,7 @@ export namespace Prisma {
       endpoint: string
       url: string
       title: string
+      lang: string | null
       author: string | null
       image: string | null
       intersiteMangaId: string | null
@@ -2861,6 +2882,7 @@ export namespace Prisma {
     readonly endpoint: FieldRef<"Manga", 'String'>
     readonly url: FieldRef<"Manga", 'String'>
     readonly title: FieldRef<"Manga", 'String'>
+    readonly lang: FieldRef<"Manga", 'String'>
     readonly author: FieldRef<"Manga", 'String'>
     readonly image: FieldRef<"Manga", 'String'>
     readonly intersiteMangaId: FieldRef<"Manga", 'String'>
@@ -5123,6 +5145,7 @@ export namespace Prisma {
     url: 'url',
     title: 'title',
     number: 'number',
+    lang: 'lang',
     image: 'image',
     releaseDate: 'releaseDate',
     mangaId: 'mangaId',
@@ -5138,6 +5161,7 @@ export namespace Prisma {
     endpoint: 'endpoint',
     url: 'url',
     title: 'title',
+    lang: 'lang',
     author: 'author',
     image: 'image',
     intersiteMangaId: 'intersiteMangaId'
@@ -5194,6 +5218,7 @@ export namespace Prisma {
     url: 'url',
     title: 'title',
     number: 'number',
+    lang: 'lang',
     image: 'image',
     mangaId: 'mangaId',
     intersiteChapterId: 'intersiteChapterId'
@@ -5208,6 +5233,7 @@ export namespace Prisma {
     endpoint: 'endpoint',
     url: 'url',
     title: 'title',
+    lang: 'lang',
     author: 'author',
     image: 'image',
     intersiteMangaId: 'intersiteMangaId'
@@ -5293,6 +5319,7 @@ export namespace Prisma {
     url?: StringFilter<"Chapter"> | string
     title?: StringFilter<"Chapter"> | string
     number?: StringFilter<"Chapter"> | string
+    lang?: StringNullableFilter<"Chapter"> | string | null
     image?: StringNullableFilter<"Chapter"> | string | null
     releaseDate?: DateTimeNullableFilter<"Chapter"> | Date | string | null
     mangaId?: StringFilter<"Chapter"> | string
@@ -5308,6 +5335,7 @@ export namespace Prisma {
     url?: SortOrder
     title?: SortOrder
     number?: SortOrder
+    lang?: SortOrderInput | SortOrder
     image?: SortOrderInput | SortOrder
     releaseDate?: SortOrderInput | SortOrder
     mangaId?: SortOrder
@@ -5327,6 +5355,7 @@ export namespace Prisma {
     url?: StringFilter<"Chapter"> | string
     title?: StringFilter<"Chapter"> | string
     number?: StringFilter<"Chapter"> | string
+    lang?: StringNullableFilter<"Chapter"> | string | null
     image?: StringNullableFilter<"Chapter"> | string | null
     releaseDate?: DateTimeNullableFilter<"Chapter"> | Date | string | null
     mangaId?: StringFilter<"Chapter"> | string
@@ -5342,6 +5371,7 @@ export namespace Prisma {
     url?: SortOrder
     title?: SortOrder
     number?: SortOrder
+    lang?: SortOrderInput | SortOrder
     image?: SortOrderInput | SortOrder
     releaseDate?: SortOrderInput | SortOrder
     mangaId?: SortOrder
@@ -5361,6 +5391,7 @@ export namespace Prisma {
     url?: StringWithAggregatesFilter<"Chapter"> | string
     title?: StringWithAggregatesFilter<"Chapter"> | string
     number?: StringWithAggregatesFilter<"Chapter"> | string
+    lang?: StringNullableWithAggregatesFilter<"Chapter"> | string | null
     image?: StringNullableWithAggregatesFilter<"Chapter"> | string | null
     releaseDate?: DateTimeNullableWithAggregatesFilter<"Chapter"> | Date | string | null
     mangaId?: StringWithAggregatesFilter<"Chapter"> | string
@@ -5376,6 +5407,7 @@ export namespace Prisma {
     endpoint?: StringFilter<"Manga"> | string
     url?: StringFilter<"Manga"> | string
     title?: StringFilter<"Manga"> | string
+    lang?: StringNullableFilter<"Manga"> | string | null
     author?: StringNullableFilter<"Manga"> | string | null
     image?: StringNullableFilter<"Manga"> | string | null
     intersiteMangaId?: StringNullableFilter<"Manga"> | string | null
@@ -5389,6 +5421,7 @@ export namespace Prisma {
     endpoint?: SortOrder
     url?: SortOrder
     title?: SortOrder
+    lang?: SortOrderInput | SortOrder
     author?: SortOrderInput | SortOrder
     image?: SortOrderInput | SortOrder
     intersiteMangaId?: SortOrderInput | SortOrder
@@ -5406,6 +5439,7 @@ export namespace Prisma {
     src?: StringFilter<"Manga"> | string
     url?: StringFilter<"Manga"> | string
     title?: StringFilter<"Manga"> | string
+    lang?: StringNullableFilter<"Manga"> | string | null
     author?: StringNullableFilter<"Manga"> | string | null
     image?: StringNullableFilter<"Manga"> | string | null
     intersiteMangaId?: StringNullableFilter<"Manga"> | string | null
@@ -5419,6 +5453,7 @@ export namespace Prisma {
     endpoint?: SortOrder
     url?: SortOrder
     title?: SortOrder
+    lang?: SortOrderInput | SortOrder
     author?: SortOrderInput | SortOrder
     image?: SortOrderInput | SortOrder
     intersiteMangaId?: SortOrderInput | SortOrder
@@ -5436,6 +5471,7 @@ export namespace Prisma {
     endpoint?: StringWithAggregatesFilter<"Manga"> | string
     url?: StringWithAggregatesFilter<"Manga"> | string
     title?: StringWithAggregatesFilter<"Manga"> | string
+    lang?: StringNullableWithAggregatesFilter<"Manga"> | string | null
     author?: StringNullableWithAggregatesFilter<"Manga"> | string | null
     image?: StringNullableWithAggregatesFilter<"Manga"> | string | null
     intersiteMangaId?: StringNullableWithAggregatesFilter<"Manga"> | string | null
@@ -5541,6 +5577,7 @@ export namespace Prisma {
     url: string
     title: string
     number: string
+    lang?: string | null
     image?: string | null
     releaseDate?: Date | string | null
     manga?: MangaCreateNestedOneWithoutChaptersInput
@@ -5554,6 +5591,7 @@ export namespace Prisma {
     url: string
     title: string
     number: string
+    lang?: string | null
     image?: string | null
     releaseDate?: Date | string | null
     mangaId: string
@@ -5567,6 +5605,7 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     number?: StringFieldUpdateOperationsInput | string
+    lang?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     releaseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     manga?: MangaUpdateOneWithoutChaptersNestedInput
@@ -5580,6 +5619,7 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     number?: StringFieldUpdateOperationsInput | string
+    lang?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     releaseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     mangaId?: StringFieldUpdateOperationsInput | string
@@ -5593,6 +5633,7 @@ export namespace Prisma {
     url: string
     title: string
     number: string
+    lang?: string | null
     image?: string | null
     releaseDate?: Date | string | null
     mangaId: string
@@ -5606,6 +5647,7 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     number?: StringFieldUpdateOperationsInput | string
+    lang?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     releaseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
@@ -5617,6 +5659,7 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     number?: StringFieldUpdateOperationsInput | string
+    lang?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     releaseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     mangaId?: StringFieldUpdateOperationsInput | string
@@ -5629,6 +5672,7 @@ export namespace Prisma {
     endpoint: string
     url: string
     title: string
+    lang?: string | null
     author?: string | null
     image?: string | null
     chapters?: ChapterCreateNestedManyWithoutMangaInput
@@ -5641,6 +5685,7 @@ export namespace Prisma {
     endpoint: string
     url: string
     title: string
+    lang?: string | null
     author?: string | null
     image?: string | null
     intersiteMangaId?: string | null
@@ -5653,6 +5698,7 @@ export namespace Prisma {
     endpoint?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    lang?: NullableStringFieldUpdateOperationsInput | string | null
     author?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     chapters?: ChapterUpdateManyWithoutMangaNestedInput
@@ -5665,6 +5711,7 @@ export namespace Prisma {
     endpoint?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    lang?: NullableStringFieldUpdateOperationsInput | string | null
     author?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     intersiteMangaId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -5677,6 +5724,7 @@ export namespace Prisma {
     endpoint: string
     url: string
     title: string
+    lang?: string | null
     author?: string | null
     image?: string | null
     intersiteMangaId?: string | null
@@ -5688,6 +5736,7 @@ export namespace Prisma {
     endpoint?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    lang?: NullableStringFieldUpdateOperationsInput | string | null
     author?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
   }
@@ -5698,6 +5747,7 @@ export namespace Prisma {
     endpoint?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    lang?: NullableStringFieldUpdateOperationsInput | string | null
     author?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     intersiteMangaId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -5862,6 +5912,7 @@ export namespace Prisma {
     url?: SortOrder
     title?: SortOrder
     number?: SortOrder
+    lang?: SortOrder
     image?: SortOrder
     releaseDate?: SortOrder
     mangaId?: SortOrder
@@ -5875,6 +5926,7 @@ export namespace Prisma {
     url?: SortOrder
     title?: SortOrder
     number?: SortOrder
+    lang?: SortOrder
     image?: SortOrder
     releaseDate?: SortOrder
     mangaId?: SortOrder
@@ -5888,6 +5940,7 @@ export namespace Prisma {
     url?: SortOrder
     title?: SortOrder
     number?: SortOrder
+    lang?: SortOrder
     image?: SortOrder
     releaseDate?: SortOrder
     mangaId?: SortOrder
@@ -5973,6 +6026,7 @@ export namespace Prisma {
     endpoint?: SortOrder
     url?: SortOrder
     title?: SortOrder
+    lang?: SortOrder
     author?: SortOrder
     image?: SortOrder
     intersiteMangaId?: SortOrder
@@ -5984,6 +6038,7 @@ export namespace Prisma {
     endpoint?: SortOrder
     url?: SortOrder
     title?: SortOrder
+    lang?: SortOrder
     author?: SortOrder
     image?: SortOrder
     intersiteMangaId?: SortOrder
@@ -5995,6 +6050,7 @@ export namespace Prisma {
     endpoint?: SortOrder
     url?: SortOrder
     title?: SortOrder
+    lang?: SortOrder
     author?: SortOrder
     image?: SortOrder
     intersiteMangaId?: SortOrder
@@ -6428,6 +6484,7 @@ export namespace Prisma {
     endpoint: string
     url: string
     title: string
+    lang?: string | null
     author?: string | null
     image?: string | null
     intersiteManga?: IntersiteMangaCreateNestedOneWithoutMangasInput
@@ -6439,6 +6496,7 @@ export namespace Prisma {
     endpoint: string
     url: string
     title: string
+    lang?: string | null
     author?: string | null
     image?: string | null
     intersiteMangaId?: string | null
@@ -6483,6 +6541,7 @@ export namespace Prisma {
     endpoint?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    lang?: NullableStringFieldUpdateOperationsInput | string | null
     author?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     intersiteManga?: IntersiteMangaUpdateOneWithoutMangasNestedInput
@@ -6494,6 +6553,7 @@ export namespace Prisma {
     endpoint?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    lang?: NullableStringFieldUpdateOperationsInput | string | null
     author?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     intersiteMangaId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -6529,6 +6589,7 @@ export namespace Prisma {
     url: string
     title: string
     number: string
+    lang?: string | null
     image?: string | null
     releaseDate?: Date | string | null
     intersiteChapter?: IntersiteChapterCreateNestedOneWithoutChaptersInput
@@ -6541,6 +6602,7 @@ export namespace Prisma {
     url: string
     title: string
     number: string
+    lang?: string | null
     image?: string | null
     releaseDate?: Date | string | null
     intersiteChapterId?: string | null
@@ -6599,6 +6661,7 @@ export namespace Prisma {
     url?: StringFilter<"Chapter"> | string
     title?: StringFilter<"Chapter"> | string
     number?: StringFilter<"Chapter"> | string
+    lang?: StringNullableFilter<"Chapter"> | string | null
     image?: StringNullableFilter<"Chapter"> | string | null
     releaseDate?: DateTimeNullableFilter<"Chapter"> | Date | string | null
     mangaId?: StringFilter<"Chapter"> | string
@@ -6652,6 +6715,7 @@ export namespace Prisma {
     url: string
     title: string
     number: string
+    lang?: string | null
     image?: string | null
     releaseDate?: Date | string | null
     manga?: MangaCreateNestedOneWithoutChaptersInput
@@ -6664,6 +6728,7 @@ export namespace Prisma {
     url: string
     title: string
     number: string
+    lang?: string | null
     image?: string | null
     releaseDate?: Date | string | null
     mangaId: string
@@ -6724,6 +6789,7 @@ export namespace Prisma {
     endpoint: string
     url: string
     title: string
+    lang?: string | null
     author?: string | null
     image?: string | null
     chapters?: ChapterCreateNestedManyWithoutMangaInput
@@ -6735,6 +6801,7 @@ export namespace Prisma {
     endpoint: string
     url: string
     title: string
+    lang?: string | null
     author?: string | null
     image?: string | null
     chapters?: ChapterUncheckedCreateNestedManyWithoutMangaInput
@@ -6797,6 +6864,7 @@ export namespace Prisma {
     endpoint?: StringFilter<"Manga"> | string
     url?: StringFilter<"Manga"> | string
     title?: StringFilter<"Manga"> | string
+    lang?: StringNullableFilter<"Manga"> | string | null
     author?: StringNullableFilter<"Manga"> | string | null
     image?: StringNullableFilter<"Manga"> | string | null
     intersiteMangaId?: StringNullableFilter<"Manga"> | string | null
@@ -6834,6 +6902,7 @@ export namespace Prisma {
     url: string
     title: string
     number: string
+    lang?: string | null
     image?: string | null
     releaseDate?: Date | string | null
     intersiteChapterId?: string | null
@@ -6846,6 +6915,7 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     number?: StringFieldUpdateOperationsInput | string
+    lang?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     releaseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     intersiteChapter?: IntersiteChapterUpdateOneWithoutChaptersNestedInput
@@ -6858,6 +6928,7 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     number?: StringFieldUpdateOperationsInput | string
+    lang?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     releaseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     intersiteChapterId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -6870,6 +6941,7 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     number?: StringFieldUpdateOperationsInput | string
+    lang?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     releaseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     intersiteChapterId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -6882,6 +6954,7 @@ export namespace Prisma {
     url: string
     title: string
     number: string
+    lang?: string | null
     image?: string | null
     releaseDate?: Date | string | null
     mangaId: string
@@ -6894,6 +6967,7 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     number?: StringFieldUpdateOperationsInput | string
+    lang?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     releaseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     manga?: MangaUpdateOneWithoutChaptersNestedInput
@@ -6906,6 +6980,7 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     number?: StringFieldUpdateOperationsInput | string
+    lang?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     releaseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     mangaId?: StringFieldUpdateOperationsInput | string
@@ -6918,6 +6993,7 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     number?: StringFieldUpdateOperationsInput | string
+    lang?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     releaseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     mangaId?: StringFieldUpdateOperationsInput | string
@@ -6929,6 +7005,7 @@ export namespace Prisma {
     endpoint: string
     url: string
     title: string
+    lang?: string | null
     author?: string | null
     image?: string | null
   }
@@ -6944,6 +7021,7 @@ export namespace Prisma {
     endpoint?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    lang?: NullableStringFieldUpdateOperationsInput | string | null
     author?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     chapters?: ChapterUpdateManyWithoutMangaNestedInput
@@ -6955,6 +7033,7 @@ export namespace Prisma {
     endpoint?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    lang?: NullableStringFieldUpdateOperationsInput | string | null
     author?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     chapters?: ChapterUncheckedUpdateManyWithoutMangaNestedInput
@@ -6966,6 +7045,7 @@ export namespace Prisma {
     endpoint?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    lang?: NullableStringFieldUpdateOperationsInput | string | null
     author?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
   }

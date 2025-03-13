@@ -12,6 +12,7 @@ import {
   IdentifiedMangaCore,
   StoredManga,
 } from "../../../shared/src/types/basics/Manga";
+import { DefaultValues } from "../config/default-values";
 import {
   IntersiteChapter as PrismaIntersiteChapter,
   IntersiteManga as PrismaIntersiteManga,
@@ -29,6 +30,7 @@ class PrismaConverter {
       endpoint: chapter.endpoint,
       url: chapter.url,
       title: chapter.title,
+      lang: chapter.lang ?? DefaultValues.CHAPTER_LANG,
       number: chapter.number,
       image: chapter.image ?? undefined,
       releaseDate: chapter.releaseDate ?? undefined,
@@ -60,6 +62,7 @@ class PrismaConverter {
       endpoint: manga.endpoint,
       url: manga.url,
       title: manga.title,
+      lang: manga.lang ?? DefaultValues.MANGA_LANG,
       author: manga.author ?? undefined,
       image: manga.image ?? undefined,
       intersiteManga: {
@@ -85,6 +88,7 @@ class PrismaConverter {
         url: c.url,
         title: c.title,
         number: c.number,
+        lang: c.lang ?? DefaultValues.CHAPTER_LANG,
         image: c.image ?? undefined,
         releaseDate: c.releaseDate ?? undefined,
       })),
@@ -96,37 +100,43 @@ class PrismaConverter {
     intersiteManga: PrismaIntersiteManga,
     chapters: T[]
   ): IntersiteChapter {
-    return {
-      ...this.PrismaIntersiteChapterToParentlessIntersiteChapter(
+    const parentlessIntersiteChapter =
+      this.PrismaIntersiteChapterToParentlessIntersiteChapter(
         intersiteChapter,
         chapters
-      ),
-      intersiteManga: {
+      );
+    return new IntersiteChapter(
+      parentlessIntersiteChapter.id,
+      parentlessIntersiteChapter.formattedName,
+      {
         id: intersiteManga.id,
         formattedName: intersiteManga.formattedName,
       },
-    };
+      parentlessIntersiteChapter.chapters
+    );
   }
 
   public PrismaIntersiteMangaToIntersiteManga<
     T extends IdentifiedMangaCore & {
+      lang: string | null;
       image: string | null;
       author: string | null;
     },
   >(intersiteManga: PrismaIntersiteManga, mangas: T[]): IntersiteManga {
-    return {
-      id: intersiteManga.id,
-      formattedName: intersiteManga.formattedName,
-      mangas: mangas.map((m) => ({
+    return new IntersiteManga(
+      intersiteManga.id,
+      intersiteManga.formattedName,
+      mangas.map((m) => ({
         id: m.id,
         endpoint: m.endpoint,
         url: m.url,
         src: m.src,
         title: m.title,
+        lang: m.lang,
         author: m.author ?? undefined,
         image: m.image ?? undefined,
-      })),
-    };
+      }))
+    );
   }
 }
 

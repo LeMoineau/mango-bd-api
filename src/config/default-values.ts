@@ -1,4 +1,7 @@
-import { SourceName } from "../../../shared/src/types/primitives/Identifiers";
+import {
+  Lang,
+  SourceName,
+} from "../../../shared/src/types/primitives/Identifiers";
 
 export namespace DefaultValues {
   export const LIFETIME = 60 * 1000; // 1min
@@ -17,4 +20,7 @@ export namespace DefaultValues {
   export const MIN_PAGE_SIZE: number = 1;
 
   export const MIN_SEARCH_LENGTH: number = 5;
+
+  export const CHAPTER_LANG: Lang = "en";
+  export const MANGA_LANG: Lang = "en";
 }

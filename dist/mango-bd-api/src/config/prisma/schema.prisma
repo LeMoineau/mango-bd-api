@@ -21,6 +21,7 @@ model Chapter {
   url                String
   title              String
   number             String
+  lang               String?
   image              String?
   releaseDate        DateTime?
   manga              Manga?            @relation(fields: [mangaId], references: [id])
@@ -35,6 +36,7 @@ model Manga {
   endpoint         String          @unique //id on the website
   url              String
   title            String
+  lang             String?
   author           String?
   image            String?
   chapters         Chapter[]

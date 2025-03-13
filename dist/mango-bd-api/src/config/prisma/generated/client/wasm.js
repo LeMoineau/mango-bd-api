@@ -126,6 +126,7 @@ exports.Prisma.ChapterScalarFieldEnum = {
   url: 'url',
   title: 'title',
   number: 'number',
+  lang: 'lang',
   image: 'image',
   releaseDate: 'releaseDate',
   mangaId: 'mangaId',
@@ -138,6 +139,7 @@ exports.Prisma.MangaScalarFieldEnum = {
   endpoint: 'endpoint',
   url: 'url',
   title: 'title',
+  lang: 'lang',
   author: 'author',
   image: 'image',
   intersiteMangaId: 'intersiteMangaId'
@@ -176,6 +178,7 @@ exports.Prisma.ChapterOrderByRelevanceFieldEnum = {
   url: 'url',
   title: 'title',
   number: 'number',
+  lang: 'lang',
   image: 'image',
   mangaId: 'mangaId',
   intersiteChapterId: 'intersiteChapterId'
@@ -187,6 +190,7 @@ exports.Prisma.MangaOrderByRelevanceFieldEnum = {
   endpoint: 'endpoint',
   url: 'url',
   title: 'title',
+  lang: 'lang',
   author: 'author',
   image: 'image',
   intersiteMangaId: 'intersiteMangaId'

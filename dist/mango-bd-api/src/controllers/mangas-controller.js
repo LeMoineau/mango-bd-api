@@ -82,6 +82,7 @@ class MangasController {
                 url: manga.url,
                 title: manga.title,
                 intersiteMangaId: intersiteManga.id,
+                lang: manga.lang,
                 author: manga.author,
                 image: manga.image,
             };

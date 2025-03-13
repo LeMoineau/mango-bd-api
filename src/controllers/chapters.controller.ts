@@ -113,6 +113,7 @@ class ChaptersController {
         endpoint: chapter.manga.endpoint,
         url: chapter.manga.url,
         title: chapter.manga.title,
+        lang: chapter.lang,
       });
     }
 

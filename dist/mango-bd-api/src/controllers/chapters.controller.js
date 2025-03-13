@@ -98,6 +98,7 @@ class ChaptersController {
                     endpoint: chapter.manga.endpoint,
                     url: chapter.manga.url,
                     title: chapter.manga.title,
+                    lang: chapter.lang,
                 });
             }
             //CREATING INTERSITE_CHAPTER IF NOT EXIST

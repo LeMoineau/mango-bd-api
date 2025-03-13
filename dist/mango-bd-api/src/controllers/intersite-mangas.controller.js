@@ -12,10 +12,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const IntersiteManga_1 = require("../../../shared/src/types/basics/IntersiteManga");
 const Identifiers_1 = require("../../../shared/src/types/primitives/Identifiers");
 const client_1 = require("../config/prisma/generated/client");
 const PrismaConverter_service_1 = __importDefault(require("../services/PrismaConverter.service"));
 const AdditionalProps_service_1 = __importDefault(require("../services/AdditionalProps.service"));
+const default_values_1 = require("../config/default-values");
 class IntersiteMangasController {
     constructor() {
         this.prisma = new client_1.PrismaClient();
@@ -66,6 +68,7 @@ class IntersiteMangasController {
                             endpoint: true,
                             url: true,
                             title: true,
+                            lang: true,
                             author: true,
                             image: true,
                         },
@@ -73,7 +76,10 @@ class IntersiteMangasController {
                 },
             });
             return {
-                elements: intersiteMangas.map((im) => PrismaConverter_service_1.default.PrismaIntersiteMangaToIntersiteManga(im, im.mangas)),
+                elements: intersiteMangas.map((im) => PrismaConverter_service_1.default.PrismaIntersiteMangaToIntersiteManga(im, im.mangas.map((m) => {
+                    var _a;
+                    return (Object.assign(Object.assign({}, m), { lang: (_a = m.lang) !== null && _a !== void 0 ? _a : default_values_1.DefaultValues.MANGA_LANG }));
+                }))),
                 pageNumber,
                 pageSize,
             };
@@ -96,7 +102,10 @@ class IntersiteMangasController {
             });
             return intersiteManga === null
                 ? undefined
-                : PrismaConverter_service_1.default.PrismaIntersiteMangaToIntersiteManga(intersiteManga, intersiteManga.mangas);
+                : PrismaConverter_service_1.default.PrismaIntersiteMangaToIntersiteManga(intersiteManga, intersiteManga.mangas.map((m) => {
+                    var _a;
+                    return (Object.assign(Object.assign({}, m), { lang: (_a = m.lang) !== null && _a !== void 0 ? _a : default_values_1.DefaultValues.MANGA_LANG }));
+                }));
         });
     }
     save(intersiteMangaCore) {
@@ -104,7 +113,7 @@ class IntersiteMangasController {
             const res = yield this.prisma.intersiteManga.create({
                 data: Object.assign({}, intersiteMangaCore),
             });
-            return Object.assign(Object.assign({}, res), { mangas: [] });
+            return new IntersiteManga_1.IntersiteManga(res.id, res.formattedName, []);
         });
     }
     getIntersiteChaptersOf(id, props) {
@@ -124,6 +133,7 @@ class IntersiteMangasController {
                             number: true,
                             src: true,
                             endpoint: true,
+                            lang: true,
                             image: true,
                             releaseDate: true,
                         },

@@ -13,6 +13,7 @@ import { ResponsePage } from "../../../shared/src/types/responses/ResponsePage";
 import { PrismaClient } from "../config/prisma/generated/client";
 import PrismaConverterService from "../services/PrismaConverter.service";
 import AdditionalPropsService from "../services/AdditionalProps.service";
+import { DefaultValues } from "../config/default-values";
 
 class IntersiteMangasController {
   private prisma;
@@ -75,6 +76,7 @@ class IntersiteMangasController {
             endpoint: true,
             url: true,
             title: true,
+            lang: true,
             author: true,
             image: true,
           },
@@ -85,7 +87,10 @@ class IntersiteMangasController {
       elements: intersiteMangas.map((im) =>
         PrismaConverterService.PrismaIntersiteMangaToIntersiteManga(
           im,
-          im.mangas!
+          im.mangas!.map((m) => ({
+            ...m,
+            lang: m.lang ?? DefaultValues.MANGA_LANG,
+          }))
         )
       ),
       pageNumber,
@@ -112,7 +117,10 @@ class IntersiteMangasController {
       ? undefined
       : PrismaConverterService.PrismaIntersiteMangaToIntersiteManga(
           intersiteManga,
-          intersiteManga.mangas
+          intersiteManga.mangas.map((m) => ({
+            ...m,
+            lang: m.lang ?? DefaultValues.MANGA_LANG,
+          }))
         );
   }
 
@@ -124,10 +132,7 @@ class IntersiteMangasController {
         ...intersiteMangaCore,
       },
     });
-    return {
-      ...res,
-      mangas: [],
-    };
+    return new IntersiteManga(res.id, res.formattedName, []);
   }
 
   public async getIntersiteChaptersOf(
@@ -150,6 +155,7 @@ class IntersiteMangasController {
             number: true,
             src: true,
             endpoint: true,
+            lang: true,
             image: true,
             releaseDate: true,
           },

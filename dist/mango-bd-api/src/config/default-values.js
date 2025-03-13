@@ -17,4 +17,6 @@ var DefaultValues;
     DefaultValues.MAX_PAGE_SIZE = 50;
     DefaultValues.MIN_PAGE_SIZE = 1;
     DefaultValues.MIN_SEARCH_LENGTH = 5;
+    DefaultValues.CHAPTER_LANG = "en";
+    DefaultValues.MANGA_LANG = "en";
 })(DefaultValues || (exports.DefaultValues = DefaultValues = {}));
