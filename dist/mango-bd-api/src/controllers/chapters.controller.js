@@ -32,6 +32,7 @@ class ChaptersController {
                 take,
                 where: {
                     src: { in: props.srcs },
+                    lang: { in: props.langs },
                     title: { contains: title, mode: "insensitive" },
                     number: { contains: number, mode: "insensitive" },
                     manga: {
@@ -142,6 +143,7 @@ class ChaptersController {
                 take,
                 where: {
                     src: { in: props.srcs },
+                    lang: { in: props.langs },
                     title: { contains: title, mode: "insensitive" },
                     number: { contains: number, mode: "insensitive" },
                     manga: {

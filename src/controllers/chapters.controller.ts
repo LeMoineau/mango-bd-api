@@ -4,6 +4,7 @@ import {
 } from "../../../shared/src/types/basics/Chapter";
 import {
   isUUID,
+  Lang,
   SourceName,
   UUID,
 } from "../../../shared/src/types/primitives/Identifiers";
@@ -30,6 +31,7 @@ class ChaptersController {
     mangaTitle?: string;
     title?: string;
     number?: string;
+    langs?: Lang[];
   }): Promise<ResponsePage<StoredChapter>> {
     const { pageSize, pageNumber, take, skip } =
       AdditionalPropsService.page(props);
@@ -40,6 +42,7 @@ class ChaptersController {
       take,
       where: {
         src: { in: props.srcs },
+        lang: { in: props.langs },
         title: { contains: title, mode: "insensitive" },
         number: { contains: number, mode: "insensitive" },
         manga: {
@@ -166,6 +169,7 @@ class ChaptersController {
     mangaTitle?: string;
     title?: string;
     number?: string;
+    langs?: Lang[];
   }): Promise<ResponsePage<StoredChapter>> {
     const { pageSize, pageNumber, take, skip } =
       AdditionalPropsService.page(props);
@@ -176,6 +180,7 @@ class ChaptersController {
       take,
       where: {
         src: { in: props.srcs },
+        lang: { in: props.langs },
         title: { contains: title, mode: "insensitive" },
         number: { contains: number, mode: "insensitive" },
         manga: {

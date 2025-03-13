@@ -21,6 +21,7 @@ const mangasRouter = (0, express_1.Router)();
 mangasRouter.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const srcs = routing_utils_1.RoutingUtils.convertQueryParamToArray(req.query.srcs);
+        const langs = routing_utils_1.RoutingUtils.convertQueryParamToArray(req.query.langs);
         const pageNumber = routing_utils_1.RoutingUtils.convertQueryParamToNumber(req.query.page);
         const pageSize = routing_utils_1.RoutingUtils.convertQueryParamToNumber(req.query.limit);
         const title = routing_utils_1.RoutingUtils.convertQueryParamToString(req.query.title);
@@ -36,6 +37,7 @@ mangasRouter.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* 
                 pageSize,
                 title,
                 author,
+                langs,
             }));
         }
         catch (error) {
@@ -104,20 +106,14 @@ mangasRouter.get("/:id", (req, res) => __awaiter(void 0, void 0, void 0, functio
 mangasRouter.get("/:id/chapters", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const id = routing_utils_1.RoutingUtils.convertQueryParamToString(req.params.id);
-        const srcs = routing_utils_1.RoutingUtils.convertQueryParamToArray(req.query.srcs);
         const pageNumber = routing_utils_1.RoutingUtils.convertQueryParamToNumber(req.query.page);
         const pageSize = routing_utils_1.RoutingUtils.convertQueryParamToNumber(req.query.limit);
         if (!id) {
             res.status(400).send("id must be a valid uuid");
             return;
         }
-        if (srcs && !config_1.default.areValidSrcs(srcs)) {
-            res.status(400).send("srcs must be valid source names");
-            return;
-        }
         try {
             res.send(yield mangas_controller_1.default.getChaptersOf(id, {
-                srcs: srcs,
                 pageNumber,
                 pageSize,
             }));

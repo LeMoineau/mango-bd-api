@@ -53,6 +53,7 @@ router.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 router.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const srcs = routing_utils_1.RoutingUtils.convertQueryParamToArray(req.query.srcs);
+        const langs = routing_utils_1.RoutingUtils.convertQueryParamToArray(req.query.langs);
         const pageNumber = routing_utils_1.RoutingUtils.convertQueryParamToNumber(req.query.page);
         const pageSize = routing_utils_1.RoutingUtils.convertQueryParamToNumber(req.query.limit);
         const mangaTitle = routing_utils_1.RoutingUtils.convertQueryParamToString(req.query.mangaTitle);
@@ -70,6 +71,7 @@ router.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 mangaTitle,
                 title,
                 number,
+                langs,
             }));
         }
         catch (error) {

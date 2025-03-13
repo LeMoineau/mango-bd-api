@@ -1,6 +1,6 @@
 import { IdentifiedChapter } from "../../../shared/src/types/basics/Chapter";
 import { Manga, StoredManga } from "../../../shared/src/types/basics/Manga";
-import { UUID } from "../../../shared/src/types/primitives/Identifiers";
+import { Lang, UUID } from "../../../shared/src/types/primitives/Identifiers";
 import {
   isUUID,
   MangaEndpoint,
@@ -27,15 +27,18 @@ class MangasController {
     pageSize?: number;
     title?: string;
     author?: string;
+    langs?: Lang[];
   }): Promise<ResponsePage<StoredManga>> {
     const { pageSize, pageNumber, take, skip } =
       AdditionalPropsService.page(props);
     const { title, author } = AdditionalPropsService.mangaQuery(props);
+    console.log(props.langs, props.srcs);
     const mangas = await this.prisma.manga.findMany({
       skip,
       take,
       where: {
         src: { in: props.srcs },
+        lang: { in: props.langs },
         title: { contains: title, mode: "insensitive" },
         author: { contains: author, mode: "insensitive", not: author && null },
       },
@@ -109,16 +112,25 @@ class MangasController {
     );
   }
 
+  /**
+   * Get chapters of a manga
+   * @param id targeted manga
+   * @param props
+   * @returns
+   */
   public async getChaptersOf(
     id: UUID,
-    props: { srcs?: SourceName[]; pageNumber?: number; pageSize?: number }
+    props: {
+      pageNumber?: number;
+      pageSize?: number;
+    }
   ): Promise<ResponsePage<IdentifiedChapter>> {
     const { pageSize, pageNumber, take, skip } =
       AdditionalPropsService.page(props);
     const chapters = await this.prisma.chapter.findMany({
       skip,
       take,
-      where: { src: { in: props.srcs }, manga: { id } },
+      where: { manga: { id } },
       orderBy: { number: "desc" },
     });
     return {

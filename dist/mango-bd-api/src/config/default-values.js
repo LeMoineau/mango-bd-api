@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DefaultValues = void 0;
+const CommonLangs_1 = require("../../../shared/src/config/enums/CommonLangs");
 var DefaultValues;
 (function (DefaultValues) {
     DefaultValues.LIFETIME = 60 * 1000; // 1min
@@ -17,6 +18,6 @@ var DefaultValues;
     DefaultValues.MAX_PAGE_SIZE = 50;
     DefaultValues.MIN_PAGE_SIZE = 1;
     DefaultValues.MIN_SEARCH_LENGTH = 5;
-    DefaultValues.CHAPTER_LANG = "en";
-    DefaultValues.MANGA_LANG = "en";
+    DefaultValues.CHAPTER_LANG = CommonLangs_1.CommonLangs.ENGLISH;
+    DefaultValues.MANGA_LANG = CommonLangs_1.CommonLangs.ENGLISH;
 })(DefaultValues || (exports.DefaultValues = DefaultValues = {}));

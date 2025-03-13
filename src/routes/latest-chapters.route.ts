@@ -9,6 +9,7 @@ const latestChaptersRouter = Router();
 latestChaptersRouter.get("/", async (req: Request, res: Response) => {
   try {
     const srcs = RoutingUtils.convertQueryParamToArray(req.query.srcs);
+    const langs = RoutingUtils.convertQueryParamToArray(req.query.langs);
     const pageNumber = RoutingUtils.convertQueryParamToNumber(req.query.page);
     const pageSize = RoutingUtils.convertQueryParamToNumber(req.query.limit);
     const mangaTitle = RoutingUtils.convertQueryParamToString(
@@ -29,6 +30,7 @@ latestChaptersRouter.get("/", async (req: Request, res: Response) => {
           mangaTitle,
           title,
           number,
+          langs,
         })
       );
     } catch (error) {

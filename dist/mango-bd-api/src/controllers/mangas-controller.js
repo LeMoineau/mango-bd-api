@@ -26,11 +26,13 @@ class MangasController {
         return __awaiter(this, void 0, void 0, function* () {
             const { pageSize, pageNumber, take, skip } = AdditionalProps_service_1.default.page(props);
             const { title, author } = AdditionalProps_service_1.default.mangaQuery(props);
+            console.log(props.langs, props.srcs);
             const mangas = yield this.prisma.manga.findMany({
                 skip,
                 take,
                 where: {
                     src: { in: props.srcs },
+                    lang: { in: props.langs },
                     title: { contains: title, mode: "insensitive" },
                     author: { contains: author, mode: "insensitive", not: author && null },
                 },
@@ -97,13 +99,19 @@ class MangasController {
             return PrismaConverter_service_1.default.PrismaMangaToStoredManga(newManga, newManga.intersiteManga);
         });
     }
+    /**
+     * Get chapters of a manga
+     * @param id targeted manga
+     * @param props
+     * @returns
+     */
     getChaptersOf(id, props) {
         return __awaiter(this, void 0, void 0, function* () {
             const { pageSize, pageNumber, take, skip } = AdditionalProps_service_1.default.page(props);
             const chapters = yield this.prisma.chapter.findMany({
                 skip,
                 take,
-                where: { src: { in: props.srcs }, manga: { id } },
+                where: { manga: { id } },
                 orderBy: { number: "desc" },
             });
             return {

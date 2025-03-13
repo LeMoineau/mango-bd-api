@@ -11,6 +11,7 @@ const mangasRouter = Router();
 mangasRouter.get("/", async (req: Request, res: Response) => {
   try {
     const srcs = RoutingUtils.convertQueryParamToArray(req.query.srcs);
+    const langs = RoutingUtils.convertQueryParamToArray(req.query.langs);
     const pageNumber = RoutingUtils.convertQueryParamToNumber(req.query.page);
     const pageSize = RoutingUtils.convertQueryParamToNumber(req.query.limit);
     const title = RoutingUtils.convertQueryParamToString(req.query.title);
@@ -27,6 +28,7 @@ mangasRouter.get("/", async (req: Request, res: Response) => {
           pageSize,
           title,
           author,
+          langs,
         })
       );
     } catch (error) {
@@ -97,21 +99,15 @@ mangasRouter.get("/:id", async (req: Request, res: Response) => {
 mangasRouter.get("/:id/chapters", async (req: Request, res: Response) => {
   try {
     const id = RoutingUtils.convertQueryParamToString(req.params.id);
-    const srcs = RoutingUtils.convertQueryParamToArray(req.query.srcs);
     const pageNumber = RoutingUtils.convertQueryParamToNumber(req.query.page);
     const pageSize = RoutingUtils.convertQueryParamToNumber(req.query.limit);
     if (!id) {
       res.status(400).send("id must be a valid uuid");
       return;
     }
-    if (srcs && !config.areValidSrcs(srcs)) {
-      res.status(400).send("srcs must be valid source names");
-      return;
-    }
     try {
       res.send(
         await mangasController.getChaptersOf(id, {
-          srcs: srcs as SourceName[],
           pageNumber,
           pageSize,
         })

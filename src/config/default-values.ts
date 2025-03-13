@@ -1,3 +1,4 @@
+import { CommonLangs } from "../../../shared/src/config/enums/CommonLangs";
 import {
   Lang,
   SourceName,
@@ -21,6 +22,6 @@ export namespace DefaultValues {
 
   export const MIN_SEARCH_LENGTH: number = 5;
 
-  export const CHAPTER_LANG: Lang = "en";
-  export const MANGA_LANG: Lang = "en";
+  export const CHAPTER_LANG: Lang = CommonLangs.ENGLISH;
+  export const MANGA_LANG: Lang = CommonLangs.ENGLISH;
 }
