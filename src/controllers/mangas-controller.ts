@@ -32,7 +32,6 @@ class MangasController {
     const { pageSize, pageNumber, take, skip } =
       AdditionalPropsService.page(props);
     const { title, author } = AdditionalPropsService.mangaQuery(props);
-    console.log(props.langs, props.srcs);
     const mangas = await this.prisma.manga.findMany({
       skip,
       take,
@@ -79,6 +78,24 @@ class MangasController {
   }
 
   public async save(manga: Manga): Promise<StoredManga> {
+    //CHECK IF MANGA ALREADY EXIST
+    const checking = await this.prisma.manga.findFirst({
+      where: {
+        src: manga.src,
+        endpoint: manga.endpoint,
+      },
+      include: {
+        intersiteManga: true,
+      },
+    });
+    if (checking !== null) {
+      return PrismaConverterService.PrismaMangaToStoredManga(
+        checking,
+        checking.intersiteManga!
+      );
+    }
+
+    //CREATE INTERSITEMANGA IF NOT EXIST
     const mangaFormattedName = TextFormatUtils.formatMangaTitle(manga.title);
     let intersiteManga = await intersiteMangasController.get({
       formattedName: mangaFormattedName,
@@ -88,6 +105,8 @@ class MangasController {
         formattedName: mangaFormattedName,
       });
     }
+
+    //CREATE MANGA
     const newMangaData: Manga & { intersiteMangaId: UUID } = {
       src: manga.src,
       endpoint: manga.endpoint,
@@ -106,6 +125,7 @@ class MangasController {
         intersiteManga: true,
       },
     });
+
     return PrismaConverterService.PrismaMangaToStoredManga(
       newManga,
       newManga.intersiteManga!
