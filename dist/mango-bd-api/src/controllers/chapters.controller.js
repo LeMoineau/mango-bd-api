@@ -113,19 +113,19 @@ class ChaptersController {
                 });
             }
             //CREATING CHAPTER
-            const res = yield this.prisma.chapter.create({
-                data: {
-                    endpoint: chapter.endpoint,
-                    src: chapter.src,
-                    url: chapter.url,
-                    title: chapter.title,
-                    number: chapter.number,
-                    image: chapter.image,
-                    releaseDate: chapter.releaseDate,
-                    mangaId: manga.id,
-                    intersiteChapterId: intersiteChapter.id,
-                },
-            });
+            const newChapterData = {
+                endpoint: chapter.endpoint,
+                src: chapter.src,
+                url: chapter.url,
+                title: chapter.title,
+                number: chapter.number,
+                image: chapter.image,
+                releaseDate: chapter.releaseDate,
+                lang: chapter.lang,
+                mangaId: manga.id,
+                intersiteChapterId: intersiteChapter.id,
+            };
+            const res = yield this.prisma.chapter.create({ data: newChapterData });
             return PrismaConverter_service_1.default.PrismaChapterToStoredChapter(res, {
                 id: manga.id,
                 endpoint: manga.endpoint,

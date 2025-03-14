@@ -1,4 +1,5 @@
 import {
+  Chapter,
   ScrapedChapter,
   StoredChapter,
 } from "../../../shared/src/types/basics/Chapter";
@@ -140,19 +141,22 @@ class ChaptersController {
     }
 
     //CREATING CHAPTER
-    const res = await this.prisma.chapter.create({
-      data: {
-        endpoint: chapter.endpoint,
-        src: chapter.src,
-        url: chapter.url,
-        title: chapter.title,
-        number: chapter.number,
-        image: chapter.image,
-        releaseDate: chapter.releaseDate,
-        mangaId: manga.id,
-        intersiteChapterId: intersiteChapter.id,
-      },
-    });
+    const newChapterData: Chapter & {
+      mangaId: UUID;
+      intersiteChapterId: UUID;
+    } = {
+      endpoint: chapter.endpoint,
+      src: chapter.src,
+      url: chapter.url,
+      title: chapter.title,
+      number: chapter.number,
+      image: chapter.image,
+      releaseDate: chapter.releaseDate,
+      lang: chapter.lang,
+      mangaId: manga.id,
+      intersiteChapterId: intersiteChapter.id,
+    };
+    const res = await this.prisma.chapter.create({ data: newChapterData });
     return PrismaConverterService.PrismaChapterToStoredChapter(res, {
       id: manga.id,
       endpoint: manga.endpoint,
