@@ -12,7 +12,6 @@ import { PrismaClient } from "../config/prisma/generated/client";
 import PrismaConverterService from "../services/PrismaConverter.service";
 import intersiteMangasController from "./intersite-mangas.controller";
 import AdditionalPropsService from "../services/AdditionalProps.service";
-import { PrismaManga } from "../types/prisma/PrismaManga";
 
 class MangasController {
   private prisma;
